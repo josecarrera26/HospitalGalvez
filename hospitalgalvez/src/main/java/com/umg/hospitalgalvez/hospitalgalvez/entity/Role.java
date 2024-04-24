@@ -1,39 +1,38 @@
 package com.umg.hospitalgalvez.hospitalgalvez.entity;
 
-import javax.management.relation.Role;
+import org.apache.catalina.valves.JsonAccessLogValve;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "usuario")
-public class Usuario {
+@Table(name = "role")
+public class Role {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id_usuario")
-    private Long idUsuario;
+    @Column(name = "id_role")
+    private Long idRole;
 
-    @Column( name ="username")
-    private String username;
+    @Column(name = "nombre")
+    private String nombre;
+    
+    @Column(name = "descripcion")
+    private String descripcion;
+    
+    /*validar si funciona */
+    @Column(columnDefinition = "json")
+    private JsonAccessLogValve accesos;
 
-    @ManyToOne
-    @JoinColumn(name = "role")
-    private Role roleUsuario;
-
-    @Column(name = "password")
-    private String passwordUsuario;
 
 }

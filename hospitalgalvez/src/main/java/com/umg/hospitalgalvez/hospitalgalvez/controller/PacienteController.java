@@ -30,7 +30,7 @@ public class PacienteController {
         return pacienteService.getAll();
     }
 
-    @GetMapping("id")
+    @GetMapping("{id}")
     public ResponseEntity<Optional<Paciente>> getById(@PathVariable Long id){
         Optional<Paciente> responseOfService = pacienteService.getById(id);
 
@@ -46,7 +46,7 @@ public class PacienteController {
         paciente.setNombre(pacienteJson.getNombre());
         paciente.setApellido(pacienteJson.getApellido());
         paciente.setFecha_nacimiento(pacienteJson.getFecha_nacimiento());
-        paciente.setDirecicon(pacienteJson.getDirecicon());
+        paciente.setDireccion(pacienteJson.getDireccion());
         paciente.setTelefono(pacienteJson.getTelefono());
         paciente.setDpi(pacienteJson.getDpi());
         paciente.setNit(pacienteJson.getNit());

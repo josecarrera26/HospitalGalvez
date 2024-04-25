@@ -11,7 +11,7 @@ public class PacienteDto {
     private String nombre;
     private String apellido;
     private String fecha_nacimiento;
-    private String direcicon;
+    private String direccion;
     private String telefono;
     private String dpi;
     private String nit;

@@ -19,7 +19,7 @@ public class Cita {
     private Long id_paciente;
     private Timestamp fecha_cita;
     private String descripcion;
-    private Long id_usuasrio;
+    private Long id_usuario;
     private Long id_medico;
     private String estado;
 }

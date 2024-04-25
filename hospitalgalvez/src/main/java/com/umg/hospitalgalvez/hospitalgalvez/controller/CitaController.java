@@ -4,6 +4,7 @@ import com.umg.hospitalgalvez.hospitalgalvez.entity.Cita;
 import com.umg.hospitalgalvez.hospitalgalvez.services.CitaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,6 +22,7 @@ public class CitaController {
         this.citaService = citaService;
     }
 
+    @GetMapping
     public ResponseEntity<List<Cita>> getAll() {
         List<Cita> respuesta = new ArrayList<>();
         respuesta = citaService.getAll();

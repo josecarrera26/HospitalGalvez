@@ -123,7 +123,7 @@ CREATE TABLE role (
     accesos JSON, -- Definición del campo accesos como tipo JSON
     PRIMARY KEY (id_role)
 );
---INSERT INTO public."role" (nombre, descripcion, accesos) VALUES ('administrador', 'acceso a todo', '{"permiso": "valor_permiso"}');
+--INSERT INTO hospital."role" (nombre, descripcion, accesos) VALUES ('administrador', 'acceso a todo', '{"permiso": "valor_permiso"}');
 
 -- Creación de secuencia para id_usuario
 CREATE SEQUENCE bendicion.hospital.usuario_seq
@@ -141,7 +141,7 @@ CREATE TABLE usuario (
     PRIMARY KEY (id_usuario),
     FOREIGN KEY (role_id) REFERENCES role(id_role) -- Definición de la clave foránea
 );
---INSERT INTO public.usuario (username, role_id, "password") VALUES('adm', 1, '1234');
+--INSERT INTO hospital.usuario (username, role_id, "password") VALUES('adm', 1, '1234');
 
 --select * from "role" r 
 --select * from usuario u 

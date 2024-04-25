@@ -5,10 +5,9 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
-public class RecetaDto {
+@AllArgsConstructor
+public class DetalleRecetaDto {
     private Long id_receta;
-    private Long id_cita;
-    private Long id_detalle_receta;
+    private Long id_medicamento;
 }

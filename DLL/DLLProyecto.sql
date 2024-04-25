@@ -87,6 +87,27 @@ create table receta(
 );
 
 --insert into receta (id_cita, id_detalle_receta) values (1,1)
+
+--creacion de secuencia detalle_receta
+--drop sequence bendicion.hospital.detalle_receta_seq
+CREATE SEQUENCE bendicion.hospital.detalle_receta_seq
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 0
+    maxvalue 999999;
+   
+--creacion de tabla detalle_receta
+--drop table detalle_receta;
+--select * from detalle_receta;
+create table detalle_receta(
+	id_receta int4 not null default nextval('bendicion.hospital.detalle_receta_seq') 
+		constraint pk_detalle_receta primary key,
+	id_receta integer,
+	id_medicamento integer
+);
+
+--insert into detalle_receta (id_receta, id_medicamento) values (1,1)
+
 -- Creación de secuencia para id_role
 CREATE SEQUENCE bendicion.hospital.role_seq
     START WITH 1

@@ -124,3 +124,32 @@ CREATE TABLE usuario (
 
 --select * from "role" r 
 --select * from usuario u 
+
+--creacion de secuencia paciente
+--drop sequence bendicion.hospital.paciente_seq
+CREATE SEQUENCE bendicion.hospital.paciente_seq
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 0
+    maxvalue 999999;
+   
+--creacion de tabla paciente
+--drop table paciente;
+--select * from paciente;
+create table paciente(
+	id_paciente int4 not null default nextval('bendicion.hospital.paciente_seq') 
+		constraint pk_paciente primary key,
+	nombre varchar(250),
+	apellido varchar(250),
+	fecha_nacimiento timestamp,
+	direccion varchar(250),
+	telefono varchar,
+	dpi varchar,
+	nit varchar(25),
+	email varchar(100),
+    genero varchar(25),
+	id_usuario integer,
+	estado varchar(1)
+);
+
+--insert into paciente (nombre, apellido, fecha_nacimiento, direccion, telefono, dpi, nit, email, genero, id_usuario, estado) values ('Marco', 'Lopez', now(), 'calle zona 1', 55555555, 01010110101, 12345678, 'mario@lopez.com', 'masculino', 1, 1)

@@ -19,8 +19,8 @@ public class Paciente {
     private String apellido;
     private String fecha_nacimiento;
     private String direcicon;
-    private int telefono;
-    private int dpi;
+    private String telefono;
+    private String dpi;
     private String nit;
     private String email;
     private String genero;

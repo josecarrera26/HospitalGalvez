@@ -1,5 +1,7 @@
 package com.umg.hospitalgalvez.hospitalgalvez.dto;
 
+import com.umg.hospitalgalvez.hospitalgalvez.entity.Role;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,7 +13,7 @@ public class UsuarioDto {
 
     private Long idUsuario;
     private String username;
-    private Long idRole;
+    private Role Role;
     private String password;
 
 }

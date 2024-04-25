@@ -67,7 +67,6 @@ create table cita(
 
 --insert into cita (id_paciente, fecha_cita, descripcion, id_usuario, id_medico, estado) values (1, now(),'descripcion', 1,1,'A')
 
-<<<<<<< HEAD
 
 --creacion de secuencia receta
 --drop sequence bendicion.hospital.receta_seq
@@ -88,7 +87,6 @@ create table receta(
 );
 
 --insert into receta (id_cita, id_detalle_receta) values (1,1)
-=======
 -- Creación de secuencia para id_role
 CREATE SEQUENCE bendicion.hospital.role_seq
     START WITH 1
@@ -126,5 +124,3 @@ CREATE TABLE usuario (
 
 --select * from "role" r 
 --select * from usuario u 
-
->>>>>>> d2f5bb68d6eede11a002484f12293796afa6b22c

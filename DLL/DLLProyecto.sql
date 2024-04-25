@@ -22,3 +22,47 @@ create table examen (
 );
 
 --insert into examen (descripcion, precio, observaciones) values ('prueba', 1234.20, 'observaciones')
+
+--creacion de secuencia operacion
+--drop sequence bendicion.hospital.operacion_seq
+CREATE SEQUENCE bendicion.hospital.operacion_seq
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 0
+    maxvalue 999999;
+   
+--creacion de tabla operacion
+--drop table operacion;
+--select * from operacion;
+create table operacion (
+	id_operacion int4 not null default nextval('bendicion.hospital.operacion_seq') 
+		constraint pk_operacion primary key,
+	descripcion varchar(250)
+);
+
+--insert into operacion (descripcion) values ('descripcion operacion')
+
+
+--creacion de secuencia cita
+--drop sequence bendicion.hospital.cita_seq
+CREATE SEQUENCE bendicion.hospital.cita_seq
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 0
+    maxvalue 999999;
+   
+--creacion de tabla cita
+--drop table cita;
+--select * from cita;
+create table cita(
+	id_cita int4 not null default nextval('bendicion.hospital.operacion_seq') 
+		constraint pk_cita primary key,
+	id_paciente integer,
+	fecha_cita timestamp,
+	descripcion varchar(250),
+	id_usuario integer,
+	id_medico integer,
+	estado varchar(1)
+);
+
+--insert into cita (id_paciente, fecha_cita, descripcion, id_usuario, id_medico, estado) values (1, now(),'descripcion', 1,1,'A')

@@ -6,16 +6,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "receta")
-
+@Table(name="detalle_receta")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Receta {
+public class DetalleReceta {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_receta;
-    private Long id_cita;
-    private Long id_detalle_receta;
-
+    private Long id_medicamento;
 }

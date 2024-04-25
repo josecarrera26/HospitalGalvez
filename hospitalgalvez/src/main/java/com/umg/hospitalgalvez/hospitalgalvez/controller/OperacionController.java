@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -23,6 +24,11 @@ public class OperacionController {
 
     @GetMapping
     public ResponseEntity<List<Operacion>> getList(){
-        return ResponseEntity.ok(operacionService.getAll());
+        List<Operacion> respuesta = new ArrayList<>();
+        respuesta = operacionService.getAll();
+        if (respuesta != null) {
+            return ResponseEntity.ok(respuesta);
+        }
+        return  ResponseEntity.notFound().build();
     }
 }

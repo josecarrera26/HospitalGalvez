@@ -55,7 +55,7 @@ CREATE SEQUENCE bendicion.hospital.cita_seq
 --drop table cita;
 --select * from cita;
 create table cita(
-	id_cita int4 not null default nextval('bendicion.hospital.operacion_seq') 
+	id_cita int4 not null default nextval('bendicion.hospital.cita_seq') 
 		constraint pk_cita primary key,
 	id_paciente integer,
 	fecha_cita timestamp,
@@ -66,3 +66,24 @@ create table cita(
 );
 
 --insert into cita (id_paciente, fecha_cita, descripcion, id_usuario, id_medico, estado) values (1, now(),'descripcion', 1,1,'A')
+
+
+--creacion de secuencia receta
+--drop sequence bendicion.hospital.receta_seq
+CREATE SEQUENCE bendicion.hospital.receta_seq
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 0
+    maxvalue 999999;
+   
+--creacion de tabla receta
+--drop table receta;
+--select * from receta;
+create table receta(
+	id_receta int4 not null default nextval('bendicion.hospital.receta_seq') 
+		constraint pk_receta primary key,
+	id_cita integer,
+	id_detalle_receta integer
+);
+
+--insert into receta (id_cita, id_detalle_receta) values (1,1)

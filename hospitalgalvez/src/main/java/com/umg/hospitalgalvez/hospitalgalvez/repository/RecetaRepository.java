@@ -1,5 +1,9 @@
 package com.umg.hospitalgalvez.hospitalgalvez.repository;
 
-public interface RecetaRepository {
+import com.umg.hospitalgalvez.hospitalgalvez.entity.Receta;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface RecetaRepository extends JpaRepository<Receta, Long> {
+
 
 }

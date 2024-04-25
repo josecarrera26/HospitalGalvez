@@ -1,7 +1,7 @@
 package com.umg.hospitalgalvez.hospitalgalvez.controller;
 
-import com.umg.hospitalgalvez.hospitalgalvez.entity.Examen;
-import com.umg.hospitalgalvez.hospitalgalvez.services.ExamenService;
+import com.umg.hospitalgalvez.hospitalgalvez.entity.DetalleReceta;
+import com.umg.hospitalgalvez.hospitalgalvez.services.DetalleRecetaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,22 +12,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("examenes")
-public class ExamenController {
-    private final ExamenService examenService;
+@RequestMapping("detallerecetas")
+public class DetalleRecetaController {
+    private final DetalleRecetaService detalleRecetaService;
+
     @Autowired
-    public ExamenController(ExamenService examenService) {
-        this.examenService = examenService;
+    public DetalleRecetaController(DetalleRecetaService detalleRecetaService) {
+        this.detalleRecetaService = detalleRecetaService;
     }
 
     @GetMapping
-    public ResponseEntity<List<Examen>> getList(){
-        List<Examen> respuesta = new ArrayList<>();
-        respuesta = examenService.getAll();
+    public ResponseEntity<List<DetalleReceta>> getAll(){
+        List<DetalleReceta> respuesta = new ArrayList<>();
+        respuesta = detalleRecetaService.getAll();
         if (respuesta != null) {
             return ResponseEntity.ok(respuesta);
         }
         return  ResponseEntity.notFound().build();
     }
-
 }

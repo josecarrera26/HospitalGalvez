@@ -16,7 +16,7 @@ import com.umg.hospitalgalvez.hospitalgalvez.entity.Paciente;
 import com.umg.hospitalgalvez.hospitalgalvez.services.PacienteService;
 
 @RestController
-@RequestMapping("pacientes")
+@RequestMapping("paciente")
 public class PacienteController {
     @Autowired
     private final PacienteService pacienteService;

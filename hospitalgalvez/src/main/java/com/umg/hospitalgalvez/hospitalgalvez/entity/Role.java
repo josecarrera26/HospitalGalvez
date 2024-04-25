@@ -1,6 +1,5 @@
 package com.umg.hospitalgalvez.hospitalgalvez.entity;
 
-import org.apache.catalina.valves.JsonAccessLogValve;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

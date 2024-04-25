@@ -7,7 +7,7 @@ import lombok.Data;
 @AllArgsConstructor
 public class PacienteDto {
 
-    private Long id;
+    private Long id_paciente;
     private String nombre;
     private String apellido;
     private String fecha_nacimiento;

@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class Paciente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long id_paciente;
     private String nombre;
     private String apellido;
     private String fecha_nacimiento;

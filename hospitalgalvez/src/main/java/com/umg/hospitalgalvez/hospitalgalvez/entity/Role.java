@@ -29,9 +29,7 @@ public class Role {
     @Column(name = "descripcion")
     private String descripcion;
 
-    //validar si funciona
-    //@Column(columnDefinition = "json")
-    //private JsonAccessLogValve accesos;
-
+    @Column(columnDefinition = "json") // Define el campo como tipo JSON en la base de datos
+    private String accesos;
 
 }

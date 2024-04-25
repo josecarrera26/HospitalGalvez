@@ -1,6 +1,6 @@
 package com.umg.hospitalgalvez.hospitalgalvez.entity;
 
-import javax.management.relation.Role;
+
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -30,8 +30,8 @@ public class Usuario {
     private String username;
 
     @ManyToOne
-    @JoinColumn(name = "role")
-    private Role roleUsuario;
+    @JoinColumn(name = "role_id")
+    private Role role;
 
     @Column(name = "password")
     private String passwordUsuario;

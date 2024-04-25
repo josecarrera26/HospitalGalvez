@@ -11,9 +11,9 @@ import com.umg.hospitalgalvez.hospitalgalvez.repository.UsuarioRepository;
 @Service
 public class UsuarioService {
 
+    @Autowired
     private final UsuarioRepository usuarioRepository;
 
-    @Autowired
     public UsuarioService(UsuarioRepository usuarioRepository) {
         this.usuarioRepository = usuarioRepository;
     }

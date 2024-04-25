@@ -66,3 +66,42 @@ create table cita(
 );
 
 --insert into cita (id_paciente, fecha_cita, descripcion, id_usuario, id_medico, estado) values (1, now(),'descripcion', 1,1,'A')
+
+-- Creación de secuencia para id_role
+CREATE SEQUENCE bendicion.hospital.role_seq
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 0
+    MAXVALUE 999999;
+
+-- Creación de tabla role
+CREATE TABLE role (
+    id_role INT NOT NULL DEFAULT nextval('bendicion.hospital.role_seq'),
+    nombre VARCHAR(100),
+    descripcion VARCHAR(250),
+    accesos JSON, -- Definición del campo accesos como tipo JSON
+    PRIMARY KEY (id_role)
+);
+--INSERT INTO public."role" (nombre, descripcion, accesos) VALUES ('administrador', 'acceso a todo', '{"permiso": "valor_permiso"}');
+
+-- Creación de secuencia para id_usuario
+CREATE SEQUENCE bendicion.hospital.usuario_seq
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 0
+    MAXVALUE 999999;
+
+-- Creación de tabla usuario
+CREATE TABLE usuario (
+    id_usuario INT NOT NULL DEFAULT nextval('bendicion.hospital.usuario_seq'),
+    username VARCHAR(255),
+    role_id INT, -- El ID del rol de usuario, que será una clave foránea
+    password VARCHAR(255),
+    PRIMARY KEY (id_usuario),
+    FOREIGN KEY (role_id) REFERENCES role(id_role) -- Definición de la clave foránea
+);
+--INSERT INTO public.usuario (username, role_id, "password") VALUES('adm', 1, '1234');
+
+--select * from "role" r 
+--select * from usuario u 
+

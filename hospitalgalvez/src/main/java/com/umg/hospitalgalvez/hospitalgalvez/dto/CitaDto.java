@@ -1,5 +1,6 @@
 package com.umg.hospitalgalvez.hospitalgalvez.dto;
 
+import com.umg.hospitalgalvez.hospitalgalvez.entity.Paciente;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,7 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class CitaDto {
     private Long id_cita;
-    private Long id_paciente;
+    private Paciente paciente;
     private Timestamp fecha_cita;
     private String descripcion;
     private Long id_usuario;

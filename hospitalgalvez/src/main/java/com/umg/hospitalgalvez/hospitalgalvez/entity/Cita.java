@@ -16,10 +16,17 @@ public class Cita {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_cita;
-    private Long id_paciente;
+
+    @ManyToOne
+    @JoinColumn(name = "id_paciente")
+    private Paciente paciente;
     private Timestamp fecha_cita;
     private String descripcion;
-    private Long id_usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
+
     private Long id_medico;
     private String estado;
 }

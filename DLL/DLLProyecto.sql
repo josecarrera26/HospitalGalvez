@@ -2,7 +2,7 @@ create database bendicion;
 
 CREATE SCHEMA hospital;
 
---creacion de secuencia citas
+--creacion de secuencia examen
 --drop sequence bendicion.hospital.examen_seq
 CREATE SEQUENCE bendicion.hospital.examen_seq
     START WITH 1
@@ -10,7 +10,7 @@ CREATE SEQUENCE bendicion.hospital.examen_seq
     MINVALUE 0
     maxvalue 999999;
    
---creacion de tabla citas
+--creacion de tabla examen
 --drop table examen;
 --select * from examen;
 create table examen (
@@ -82,11 +82,10 @@ CREATE SEQUENCE bendicion.hospital.receta_seq
 create table receta(
 	id_receta int4 not null default nextval('bendicion.hospital.receta_seq') 
 		constraint pk_receta primary key,
-	id_cita integer,
-	id_detalle_receta integer
+	id_cita integer
 );
 
---insert into receta (id_cita, id_detalle_receta) values (1,1)
+--insert into receta (id_cita) values (1)
 
 --creacion de secuencia detalle_receta
 --drop sequence bendicion.hospital.detalle_receta_seq
@@ -100,13 +99,13 @@ CREATE SEQUENCE bendicion.hospital.detalle_receta_seq
 --drop table detalle_receta;
 --select * from detalle_receta;
 create table detalle_receta(
-	id_receta int4 not null default nextval('bendicion.hospital.detalle_receta_seq') 
+	id_detalle_receta int4 not null default nextval('bendicion.hospital.detalle_receta_seq') 
 		constraint pk_detalle_receta primary key,
 	id_receta integer,
 	id_medicamento integer
 );
 
---insert into detalle_receta (id_receta, id_medicamento) values (1,1)
+--insert into detalle_receta (id_receta, id_medicamento) values (1,2)
 
 -- Creación de secuencia para id_role
 CREATE SEQUENCE bendicion.hospital.role_seq
@@ -117,7 +116,7 @@ CREATE SEQUENCE bendicion.hospital.role_seq
 
 -- Creación de tabla role
 CREATE TABLE role (
-    id_role INT NOT NULL DEFAULT nextval('bendicion.hospital.role_seq'),
+    id_role integer NOT NULL DEFAULT nextval('bendicion.hospital.role_seq'),
     nombre VARCHAR(100),
     descripcion VARCHAR(250),
     accesos JSON, -- Definición del campo accesos como tipo JSON
@@ -134,9 +133,9 @@ CREATE SEQUENCE bendicion.hospital.usuario_seq
 
 -- Creación de tabla usuario
 CREATE TABLE usuario (
-    id_usuario INT NOT NULL DEFAULT nextval('bendicion.hospital.usuario_seq'),
+    id_usuario integer NOT NULL DEFAULT nextval('bendicion.hospital.usuario_seq'),
     username VARCHAR(255),
-    role_id INT, -- El ID del rol de usuario, que será una clave foránea
+    role_id integer, -- El ID del rol de usuario, que será una clave foránea
     password VARCHAR(255),
     PRIMARY KEY (id_usuario),
     FOREIGN KEY (role_id) REFERENCES role(id_role) -- Definición de la clave foránea
@@ -174,3 +173,32 @@ create table paciente(
 );
 
 --insert into paciente (nombre, apellido, fecha_nacimiento, direccion, telefono, dpi, nit, email, genero, id_usuario, estado) values ('Marco', 'Lopez', now(), 'calle zona 1', 55555555, 01010110101, 12345678, 'mario@lopez.com', 'masculino', 1, 1)
+
+
+--FK
+ALTER TABLE cita
+ADD CONSTRAINT fk_cita_paciente
+FOREIGN KEY (id_paciente)
+REFERENCES paciente(id_paciente);
+
+ALTER TABLE cita
+ADD CONSTRAINT fk_cita_usuario
+FOREIGN KEY (id_usuario) 
+REFERENCES usuario(id_usuario);
+
+ALTER TABLE detalle_receta
+ADD CONSTRAINT fk_detalle_receta_receta 
+FOREIGN KEY (id_receta) 
+REFERENCES receta(id_receta);
+
+ALTER TABLE receta
+ADD CONSTRAINT fk_receta_cita 
+FOREIGN KEY (id_cita) 
+REFERENCES cita(id_cita);
+
+ALTER TABLE paciente
+ADD CONSTRAINT fk_paciente_usuario 
+FOREIGN KEY (id_usuario) 
+REFERENCES usuario(id_usuario);
+
+

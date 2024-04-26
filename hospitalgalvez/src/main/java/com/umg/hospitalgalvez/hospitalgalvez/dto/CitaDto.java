@@ -1,6 +1,7 @@
 package com.umg.hospitalgalvez.hospitalgalvez.dto;
 
 import com.umg.hospitalgalvez.hospitalgalvez.entity.Paciente;
+import com.umg.hospitalgalvez.hospitalgalvez.entity.Usuario;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -14,7 +15,7 @@ public class CitaDto {
     private Paciente paciente;
     private Timestamp fecha_cita;
     private String descripcion;
-    private Long id_usuario;
+    private Usuario id_usuario;
     private Long id_medico;
     private String estado;
 }

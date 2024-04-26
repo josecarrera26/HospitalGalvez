@@ -23,8 +23,7 @@ public class DetalleRecetaController {
 
     @GetMapping
     public ResponseEntity<List<DetalleReceta>> getAll(){
-        List<DetalleReceta> respuesta = new ArrayList<>();
-        respuesta = detalleRecetaService.getAll();
+        List<DetalleReceta> respuesta = detalleRecetaService.getAll();
         if (respuesta != null) {
             return ResponseEntity.ok(respuesta);
         }

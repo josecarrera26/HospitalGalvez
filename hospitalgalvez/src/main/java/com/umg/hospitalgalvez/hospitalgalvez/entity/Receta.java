@@ -15,7 +15,8 @@ public class Receta {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_receta;
-    private Long id_cita;
-    private Long id_detalle_receta;
 
+    @ManyToOne
+    @JoinColumn(name = "id_cita")
+    private Cita cita;
 }

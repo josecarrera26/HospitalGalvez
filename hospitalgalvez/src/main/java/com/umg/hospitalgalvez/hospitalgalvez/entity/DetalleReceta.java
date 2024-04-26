@@ -14,6 +14,11 @@ public class DetalleReceta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_receta;
+    private Long id_detalle_receta;
+
+    @ManyToOne
+    @JoinColumn(name = "id_receta")
+    private Receta receta;
+
     private Long id_medicamento;
 }

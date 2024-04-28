@@ -154,14 +154,14 @@ CREATE SEQUENCE bendicion.hospital.paciente_seq
     maxvalue 999999;
    
 --creacion de tabla paciente
---drop table paciente;
+--drop table paciente cascade;
 --select * from paciente;
 create table paciente(
 	id_paciente int4 not null default nextval('bendicion.hospital.paciente_seq') 
 		constraint pk_paciente primary key,
 	nombre varchar(250),
 	apellido varchar(250),
-	fecha_nacimiento timestamp,
+	fecha_nacimiento date,
 	direccion varchar(250),
 	telefono varchar,
 	dpi varchar,

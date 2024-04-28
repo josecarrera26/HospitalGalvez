@@ -5,6 +5,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Entity
 @Table(name = "paciente")
 
@@ -17,7 +19,7 @@ public class Paciente {
     private Long id_paciente;
     private String nombre;
     private String apellido;
-    private String fecha_nacimiento;
+    private Date fecha_nacimiento;
     private String direccion;
     private String telefono;
     private String dpi;

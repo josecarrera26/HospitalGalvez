@@ -11,4 +11,5 @@ import lombok.NoArgsConstructor;
 public class DetalleFacturaDto {
     private Long id_factura;
     private Long id_medicamento;
+    private Integer cantidad;
 }

@@ -224,6 +224,52 @@ create table especialidad(
 --insert into paciente (nombre_especialidad, descripcion, estado) values ('Cardiologo', 'descripcion', Disponible)
 
 
+
+-- creacion tabla factura --
+--drop sequence bendicion.hospital.factura_seq
+CREATE SEQUENCE bendicion.hospital.factura_seq
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 0
+    MAXVALUE 999999;
+
+create table factura(
+	id_factura INT not null default nextval('bendicion.hospital.factura_seq') 
+		constraint pk_factura primary key,
+	id_paciente integer,
+	fecha_factura Date,
+	descripcion_factura varchar(250),
+	id_usuario integer,
+	id_medico integer,
+);
+
+--creacion de secuencia detalle_factura
+--drop sequence bendicion.hospital.detalle_factura_seq
+CREATE SEQUENCE bendicion.hospital.detalle_factura_seq
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 0
+    maxvalue 999999;
+   
+--creacion de tabla detalle_receta
+--drop table detalle_receta;
+--select * from detalle_receta;
+create table detalle_factura(
+	id_detalle_factura INT not null default nextval('bendicion.hospital.detalle_factura_seq') 
+		constraint pk_detalle_factura primary key,
+	id_factura integer,
+	id_medicamento integer,
+	cantidad numeric(10,2),
+	tarifa numeric(10,2),
+	impuesto numeric(10,2),
+	descuento numeric(10,2),
+	subtotal numeric(10,2),
+	iva numeric(10,2),
+	total numeric(10,2)
+);
+
+
+
 --FK
 ALTER TABLE cita
 ADD CONSTRAINT fk_cita_paciente
@@ -250,6 +296,25 @@ ADD CONSTRAINT fk_paciente_usuario
 FOREIGN KEY (id_usuario) 
 REFERENCES usuario(id_usuario);
 
+ALTER TABLE factura
+ADD CONSTRAINT fk_factura_paciente
+FOREIGN KEY (id_paciente)
+REFERENCES paciente(id_paciente);
+
+ALTER TABLE factura
+ADD CONSTRAINT fk_factura_usuario
+FOREIGN KEY (id_usuario) 
+REFERENCES usuario(id_usuario);
+
+ALTER TABLE detalle_factura
+ADD CONSTRAINT fk_detalle_factura_encabezado
+FOREIGN KEY (id_factura) 
+REFERENCES factura(id_factura);
+
+ALTER TABLE detalle_factura
+ADD CONSTRAINT fk_detalle_factura_medicamento
+FOREIGN KEY (id_medicamento) 
+REFERENCES medicamento(id_medicamento);
 
 ALTER TABLE "medico" ADD FOREIGN KEY ("cod_jefe_inmediato") REFERENCES "medico" ("id_medico");
 ALTER TABLE "medico" ADD FOREIGN KEY ("id_especialidad") REFERENCES "especialidad" ("id_especialidad");

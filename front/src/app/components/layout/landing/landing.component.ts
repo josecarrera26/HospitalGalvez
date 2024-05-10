@@ -7,6 +7,6 @@ import { Component } from '@angular/core';
   templateUrl: './landing.component.html',
   styleUrl: './landing.component.scss'
 })
-export class LandingComponent {
+export default class  LandingComponent {
 
 }

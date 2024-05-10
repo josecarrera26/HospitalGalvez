@@ -174,28 +174,47 @@ create table paciente(
 
 --insert into paciente (nombre, apellido, fecha_nacimiento, direccion, telefono, dpi, nit, email, genero, id_usuario, estado) values ('Marco', 'Lopez', now(), 'calle zona 1', 55555555, 01010110101, 12345678, 'mario@lopez.com', 'masculino', 1, 1)
 
+
+--creacion de secuencia medico
+--drop sequence bendicion.hospital.medico_seq
+CREATE SEQUENCE bendicion.hospital.medico_seq
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 0
+    maxvalue 999999;
+
 --creacion de tabla medico
 --drop table medico;
 --select * from medico;
 create table medico(
-	id_medico INT NOT NULL DEFAULT nextval('bendicion.hospital.usuario_seq'),
+	id_medico INT NOT NULL DEFAULT nextval('bendicion.hospital.medico_seq')
 	constraint pk_medico primary key,
 	nombre_medico varchar(250),
 	apellido_medico varchar(250),
 	id_especialidad Integer,
 	id_usuario Integer,
-	telefono varchar,
+	telefono varchar(20),
 	jornada varchar,
-	cod_jefe_inmediato integer,
+	cod_jefe_inmediato integer
 );
 
 --insert into paciente (nombre_medico, apellido_medico, id_especialidad, id_usuario, telefono, jornada, cod_jefe_inmediato) values ('Thomas', 'Miller', 1, 1, 12345678, a, 1)
+
+
+--creacion de secuencia especialidad
+--drop sequence bendicion.hospital.paciente_seq
+CREATE SEQUENCE bendicion.hospital.especialidad_seq
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 0
+    maxvalue 999999;
+
 
 --creacion de tabla especialidad
 --drop table especialidad;
 --select * from especialiad;
 create table especialidad(
-	id_especialiad INT NOT NULL DEFAULT nextval('bendicion.hospital.usuario_seq'),
+	id_especialidad INT NOT NULL DEFAULT nextval('bendicion.hospital.especialidad_seq')
 	constraint pk_especialidad primary key,
 	nombre_especialidad varchar(250),
 	descripcion varchar(250),
@@ -233,5 +252,4 @@ REFERENCES usuario(id_usuario);
 
 
 ALTER TABLE "medico" ADD FOREIGN KEY ("cod_jefe_inmediato") REFERENCES "medico" ("id_medico");
-ALTER TABLE "especialidad" ADD FOREIGN KEY ("id_especialidad") REFERENCES "medico" ("id_especialidad");
-
+ALTER TABLE "medico" ADD FOREIGN KEY ("id_especialidad") REFERENCES "especialidad" ("id_especialidad");

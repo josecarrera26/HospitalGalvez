@@ -51,7 +51,9 @@ public class PacienteController {
         paciente.setGenero(pacienteJson.getGenero());
         paciente.setId_usuario(pacienteJson.getId_usuario());
         paciente.setEstado(pacienteJson.getEstado());
+        paciente.setEstado(pacienteJson.getEstado());
 
         return pacienteService.create(paciente);
+
     }  
 }

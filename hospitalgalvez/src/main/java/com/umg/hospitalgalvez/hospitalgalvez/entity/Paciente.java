@@ -16,6 +16,7 @@ import java.util.Date;
 public class Paciente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id_paciente;
     private String nombre;
     private String apellido;
@@ -26,6 +27,9 @@ public class Paciente {
     private String nit;
     private String email;
     private String genero;
-    private int id_usuario;
     private String estado;
+
+    @OneToOne
+    @JoinColumn(name = "id_usuario")
+    private Usuario usuario;
 }

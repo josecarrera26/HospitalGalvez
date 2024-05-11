@@ -12,20 +12,36 @@ import com.umg.hospitalgalvez.hospitalgalvez.repository.PacienteRepository;
 @Service
 public class PacienteService {
     @Autowired
-    private final PacienteRepository repository;
+    private final PacienteRepository pacienterepository;
 
-    public PacienteService(PacienteRepository repository){
-        this.repository = repository;
+    public PacienteService(PacienteRepository prepository){
+        this.pacienterepository = prepository;
     }
 
     public List<Paciente> getAll(){
-        return repository.findAll();
+        return pacienterepository.findAll();
     }
-    public Optional<Paciente>getById(Long id){
-        return repository.findById(id);
+
+    public Optional<Paciente> findById(Long id){
+        return pacienterepository.findById(id);
     }
 
     public Paciente create(Paciente paciente){
-        return repository.save(paciente);
+        return pacienterepository.save(paciente);
     }
+
+    public boolean delete(Long id){
+        try{
+            pacienterepository.deleteById(id);
+            return true;
+        }
+        catch(Exception e){
+            return false;
+        }
+    }
+
+    public Paciente update(Paciente paciente){
+        return pacienterepository.save(paciente);
+    }
+
 }

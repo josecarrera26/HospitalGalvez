@@ -267,7 +267,45 @@ create table detalle_factura(
 	iva numeric(10,2),
 	total numeric(10,2)
 );
+--creacion de secuencia historial
+--drop sequence bendicion.hospital.historial_seq
+CREATE SEQUENCE bendicion.hospital.historial_seq
+	START WITH 1
+	INCREMENT BY 1
+	MINVALUE 0
+	maxvalue 999999;
+	
+--creacion de tabla historial
+--drop table historial;
+--select * from historial;
+CREATE TABLE "historial" (
+  id_historial int not null default nextval('bendicion.hospital.historial_seq'), 
+  constraint pk_historial primary key,
+  id_paciente integer,
+  fecha datetime,
+  id_detalle integer,
+  diagnostico varchar,
+  id_factura integer,
+  id_detalle_historial integer
+);
+--creacion de secuencia detalle_historial
+CREATE SEQUENCE bendicion.hospital.detalle_historial_seq
+	START WITH 1
+	INCREMENT BY 1
+	MINVALUE 0
+	maxvalue 999999;
 
+--creacion de tabla detalle_historial
+--drop table detalle_historial;
+--select * from detalle_historial;
+CREATE TABLE "detalle_historial" (
+  id_detalle_historial int not null default nextval('bendicion.hospital.detalle_historial_seq'), 
+  constraint pk_detalle_historial--creacion de tabla detalle_historial
+  item varchar,
+  id_item integer,
+  descripcion text,
+  id_historial integer
+);
 
 
 --FK
@@ -318,3 +356,5 @@ REFERENCES medicamento(id_medicamento);
 
 ALTER TABLE "medico" ADD FOREIGN KEY ("cod_jefe_inmediato") REFERENCES "medico" ("id_medico");
 ALTER TABLE "medico" ADD FOREIGN KEY ("id_especialidad") REFERENCES "especialidad" ("id_especialidad");
+
+ALTER TABLE "historial" ADD FOREIGN KEY ("id_historial") REFERENCES "detalle_historial" ("id_historial");

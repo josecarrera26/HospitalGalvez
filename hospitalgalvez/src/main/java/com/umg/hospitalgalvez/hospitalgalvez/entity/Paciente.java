@@ -16,7 +16,7 @@ import java.util.Date;
 public class Paciente {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "id_paciente")
     private Long id_paciente;
     private String nombre;
     private String apellido;

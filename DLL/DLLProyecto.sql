@@ -67,6 +67,29 @@ create table cita(
 
 --insert into cita (id_paciente, fecha_cita, descripcion, id_usuario, id_medico, estado) values (1, now(),'descripcion', 1,1,'A')
 
+--creacion de secuencia medicamento
+--drop sequence bendicion.hospital.medicamento_seq
+CREATE SEQUENCE bendicion.hospital.medicamento_seq
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 0
+    maxvalue 999999;
+
+
+--creacion de tabla medicamento
+--drop table medicamento;
+--select * from medicamento;
+create table medicamento(
+	id_medicamento INT NOT NULL DEFAULT nextval('bendicion.hospital.medicamento_seq')
+	constraint pk_medicamento primary key,
+	codigo_medicamento varchar(250),
+	nombre_medicamento varchar(250),
+	tipo_medida varchar(30),
+	costo_medicamento numeric(10,2),
+	estado varchar(10)
+);
+
+
 
 --creacion de secuencia receta
 --drop sequence bendicion.hospital.receta_seq

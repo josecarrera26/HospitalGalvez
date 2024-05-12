@@ -18,4 +18,21 @@ public class EspecialidadService {
     public List<Especialidad> getAll(){
         return especialidadRepository.findAll();
     }
+
+    public Especialidad create(Especialidad especialidad){
+        return especialidadRepository.save(especialidad);
+    }
+
+    public Especialidad update(Especialidad especialidad){
+        return especialidadRepository.save(especialidad);
+    }
+
+    public void delete(Long id){
+        especialidadRepository.deleteById(id);
+    }
+
+    public Especialidad getById(Long id){
+        return especialidadRepository.findById(id).orElse(null);
+    }
+
 }

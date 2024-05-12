@@ -1,5 +1,7 @@
 package com.umg.hospitalgalvez.hospitalgalvez.entity;
 
+import java.util.Date;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,4 +21,8 @@ public class Receta {
     @ManyToOne
     @JoinColumn(name = "id_cita")
     private Cita cita;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fecha", nullable = false, updatable = false)
+    private Date fechaCreacion;
 }

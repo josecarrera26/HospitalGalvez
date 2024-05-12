@@ -67,6 +67,29 @@ create table cita(
 
 --insert into cita (id_paciente, fecha_cita, descripcion, id_usuario, id_medico, estado) values (1, now(),'descripcion', 1,1,'A')
 
+--creacion de secuencia medicamento
+--drop sequence bendicion.hospital.medicamento_seq
+CREATE SEQUENCE bendicion.hospital.medicamento_seq
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 0
+    maxvalue 999999;
+
+
+--creacion de tabla medicamento
+--drop table medicamento;
+--select * from medicamento;
+create table medicamento(
+	id_medicamento INT NOT NULL DEFAULT nextval('bendicion.hospital.medicamento_seq')
+	constraint pk_medicamento primary key,
+	codigo_medicamento varchar(250),
+	nombre_medicamento varchar(250),
+	tipo_medida varchar(30),
+	costo_medicamento numeric(10,2),
+	estado varchar(10)
+);
+
+
 
 --creacion de secuencia receta
 --drop sequence bendicion.hospital.receta_seq
@@ -174,28 +197,47 @@ create table paciente(
 
 --insert into paciente (nombre, apellido, fecha_nacimiento, direccion, telefono, dpi, nit, email, genero, id_usuario, estado) values ('Marco', 'Lopez', now(), 'calle zona 1', 55555555, 01010110101, 12345678, 'mario@lopez.com', 'masculino', 1, 1)
 
+
+--creacion de secuencia medico
+--drop sequence bendicion.hospital.medico_seq
+CREATE SEQUENCE bendicion.hospital.medico_seq
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 0
+    maxvalue 999999;
+
 --creacion de tabla medico
 --drop table medico;
 --select * from medico;
 create table medico(
-	id_medico INT NOT NULL DEFAULT nextval('bendicion.hospital.usuario_seq'),
+	id_medico INT NOT NULL DEFAULT nextval('bendicion.hospital.medico_seq')
 	constraint pk_medico primary key,
 	nombre_medico varchar(250),
 	apellido_medico varchar(250),
 	id_especialidad Integer,
 	id_usuario Integer,
-	telefono varchar,
+	telefono varchar(20),
 	jornada varchar,
-	cod_jefe_inmediato integer,
+	cod_jefe_inmediato integer
 );
 
 --insert into paciente (nombre_medico, apellido_medico, id_especialidad, id_usuario, telefono, jornada, cod_jefe_inmediato) values ('Thomas', 'Miller', 1, 1, 12345678, a, 1)
+
+
+--creacion de secuencia especialidad
+--drop sequence bendicion.hospital.paciente_seq
+CREATE SEQUENCE bendicion.hospital.especialidad_seq
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 0
+    maxvalue 999999;
+
 
 --creacion de tabla especialidad
 --drop table especialidad;
 --select * from especialiad;
 create table especialidad(
-	id_especialiad INT NOT NULL DEFAULT nextval('bendicion.hospital.usuario_seq'),
+	id_especialidad INT NOT NULL DEFAULT nextval('bendicion.hospital.especialidad_seq')
 	constraint pk_especialidad primary key,
 	nombre_especialidad varchar(250),
 	descripcion varchar(250),
@@ -203,6 +245,90 @@ create table especialidad(
 );
 
 --insert into paciente (nombre_especialidad, descripcion, estado) values ('Cardiologo', 'descripcion', Disponible)
+
+
+
+-- creacion tabla factura --
+--drop sequence bendicion.hospital.factura_seq
+CREATE SEQUENCE bendicion.hospital.factura_seq
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 0
+    MAXVALUE 999999;
+
+create table factura(
+	id_factura INT not null default nextval('bendicion.hospital.factura_seq') 
+		constraint pk_factura primary key,
+	id_paciente integer,
+	fecha_factura Date,
+	descripcion_factura varchar(250),
+	id_usuario integer,
+	id_medico integer,
+);
+
+--creacion de secuencia detalle_factura
+--drop sequence bendicion.hospital.detalle_factura_seq
+CREATE SEQUENCE bendicion.hospital.detalle_factura_seq
+    START WITH 1
+    INCREMENT BY 1
+    MINVALUE 0
+    maxvalue 999999;
+   
+--creacion de tabla detalle_receta
+--drop table detalle_receta;
+--select * from detalle_receta;
+create table detalle_factura(
+	id_detalle_factura INT not null default nextval('bendicion.hospital.detalle_factura_seq') 
+		constraint pk_detalle_factura primary key,
+	id_factura integer,
+	id_medicamento integer,
+	cantidad numeric(10,2),
+	tarifa numeric(10,2),
+	impuesto numeric(10,2),
+	descuento numeric(10,2),
+	subtotal numeric(10,2),
+	iva numeric(10,2),
+	total numeric(10,2)
+);
+--creacion de secuencia historial
+--drop sequence bendicion.hospital.historial_seq
+CREATE SEQUENCE bendicion.hospital.historial_seq
+	START WITH 1
+	INCREMENT BY 1
+	MINVALUE 0
+	maxvalue 999999;
+	
+--creacion de tabla historial
+--drop table historial;
+--select * from historial;
+CREATE TABLE "historial" (
+  id_historial int not null default nextval('bendicion.hospital.historial_seq'), 
+  constraint pk_historial primary key,
+  id_paciente integer,
+  fecha datetime,
+  id_detalle integer,
+  diagnostico varchar,
+  id_factura integer,
+  id_detalle_historial integer
+);
+--creacion de secuencia detalle_historial
+CREATE SEQUENCE bendicion.hospital.detalle_historial_seq
+	START WITH 1
+	INCREMENT BY 1
+	MINVALUE 0
+	maxvalue 999999;
+
+--creacion de tabla detalle_historial
+--drop table detalle_historial;
+--select * from detalle_historial;
+CREATE TABLE "detalle_historial" (
+  id_detalle_historial int not null default nextval('bendicion.hospital.detalle_historial_seq'), 
+  constraint pk_detalle_historial--creacion de tabla detalle_historial
+  item varchar,
+  id_item integer,
+  descripcion text,
+  id_historial integer
+);
 
 
 --FK
@@ -231,7 +357,27 @@ ADD CONSTRAINT fk_paciente_usuario
 FOREIGN KEY (id_usuario) 
 REFERENCES usuario(id_usuario);
 
+ALTER TABLE factura
+ADD CONSTRAINT fk_factura_paciente
+FOREIGN KEY (id_paciente)
+REFERENCES paciente(id_paciente);
+
+ALTER TABLE factura
+ADD CONSTRAINT fk_factura_usuario
+FOREIGN KEY (id_usuario) 
+REFERENCES usuario(id_usuario);
+
+ALTER TABLE detalle_factura
+ADD CONSTRAINT fk_detalle_factura_encabezado
+FOREIGN KEY (id_factura) 
+REFERENCES factura(id_factura);
+
+ALTER TABLE detalle_factura
+ADD CONSTRAINT fk_detalle_factura_medicamento
+FOREIGN KEY (id_medicamento) 
+REFERENCES medicamento(id_medicamento);
 
 ALTER TABLE "medico" ADD FOREIGN KEY ("cod_jefe_inmediato") REFERENCES "medico" ("id_medico");
-ALTER TABLE "especialidad" ADD FOREIGN KEY ("id_especialidad") REFERENCES "medico" ("id_especialidad");
+ALTER TABLE "medico" ADD FOREIGN KEY ("id_especialidad") REFERENCES "especialidad" ("id_especialidad");
 
+ALTER TABLE "historial" ADD FOREIGN KEY ("id_historial") REFERENCES "detalle_historial" ("id_historial");

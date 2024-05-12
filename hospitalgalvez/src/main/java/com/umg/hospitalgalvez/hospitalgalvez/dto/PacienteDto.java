@@ -2,10 +2,12 @@ package com.umg.hospitalgalvez.hospitalgalvez.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
+@NoArgsConstructor
 @AllArgsConstructor
 public class PacienteDto {
 
@@ -19,6 +21,6 @@ public class PacienteDto {
     private String nit;
     private String email;
     private String genero;
-    private int id_usuario;
     private String estado;
+    private Long id_usuario;
 }

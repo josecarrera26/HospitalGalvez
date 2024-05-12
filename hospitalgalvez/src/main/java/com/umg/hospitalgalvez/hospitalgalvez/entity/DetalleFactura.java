@@ -7,7 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name="detalle")
+@Table(name="detalle_factura")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -21,12 +21,16 @@ public class DetalleFactura {
     private Factura factura;
 
     private Long id_medicamento;
-    private Double cantidad;
+
+    @ManyToOne
+    @JoinColumn(name = "id_medicamento")
+    private Medicamento medicamento;
+
+    private Integer cantidad;
     private Double tarifa;
     private Double impuesto;
     private Double descuento;
     private Double subtotal;
     private Double iva;
     private Double total;
-
 }

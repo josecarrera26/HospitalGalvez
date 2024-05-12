@@ -1,16 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { initFlowbite } from 'flowbite';
+
 @Component({
-  selector: 'app-footer',
+  selector: 'app-login',
   standalone: true,
   imports: [],
-  templateUrl: './footer.component.html',
-  styleUrl: './footer.component.scss'
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.scss'
 })
-export class FooterComponent implements OnInit {
+export class LoginComponent implements OnInit{
   ngOnInit(): void {
     initFlowbite()
+
   }
+
 
 
 }

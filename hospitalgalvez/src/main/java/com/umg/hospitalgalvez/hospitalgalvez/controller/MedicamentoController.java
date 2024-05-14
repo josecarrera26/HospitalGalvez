@@ -4,7 +4,6 @@ import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
-import javax.swing.plaf.metal.MetalBorders.MenuItemBorder;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.umg.hospitalgalvez.hospitalgalvez.dto.MedicamentoDto;
-import com.umg.hospitalgalvez.hospitalgalvez.entity.Examen;
 import com.umg.hospitalgalvez.hospitalgalvez.entity.Medicamento;
 import com.umg.hospitalgalvez.hospitalgalvez.services.MedicamentoService;
 

@@ -13,4 +13,5 @@ public class RecetaDto {
     private Long id_receta;
     private Long id_cita;
     private Date fecha;
+    private Long [] id_medicamento;
 }

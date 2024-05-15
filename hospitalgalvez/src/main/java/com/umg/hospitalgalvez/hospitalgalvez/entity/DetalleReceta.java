@@ -19,6 +19,14 @@ public class DetalleReceta {
     @ManyToOne
     @JoinColumn(name = "id_receta")
     private Receta receta;
+    
+    @ManyToOne
+    @JoinColumn(name = "id_medicamento")
+    private Medicamento medicamento;
 
-    private Long id_medicamento;
+    public DetalleReceta(Receta receta, Medicamento medicamento){
+        this.receta = receta;
+        this.medicamento = medicamento;
+    }
+
 }

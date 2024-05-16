@@ -2,8 +2,10 @@ package com.umg.hospitalgalvez.hospitalgalvez.controller;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -38,7 +40,7 @@ public class UsuarioController {
         Usuario usuario = new Usuario();
 
         usuario.setUsername(usuarioJson.getUsername());
-        
+
         usuario.setRole(usuarioJson.getRole());
         usuario.setPasswordUsuario(usuarioJson.getPassword());
 
@@ -49,6 +51,31 @@ public class UsuarioController {
                 .buildAndExpand(reponseOfService.getIdUsuario())
                 .toUri();
         return ResponseEntity.created(Location).body(reponseOfService);
+    }
+
+    @PostMapping(value = "/login")
+    public ResponseEntity<Optional<Usuario>> login(@RequestBody UsuarioDto usuarioJson) {
+        Optional<Usuario> usuarioOpt = usuarioService.findByUsername(usuarioJson.getUsername());
+        if (usuarioOpt.isPresent()) {
+            
+            Usuario usuario = usuarioOpt.get();
+
+            if (usuario.getPasswordUsuario().equals(usuarioJson.getPassword())) {
+                System.out.println("Inicio de sesion exitoso");
+                return ResponseEntity.ok(usuarioOpt);
+
+            } else {
+                // Log para contraseña incorrecta
+                System.out.println("Contraseña incorrecta para el usuario: " +
+                        usuario.getUsername());
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+        } else {
+            // PENDIENTE DEL HTTPSTATUS
+            // Log para usuario no encontrado
+            System.out.println("Usuario no encontrado: " + usuarioJson.getUsername());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+        }
     }
 
 }

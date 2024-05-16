@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -53,6 +54,7 @@ public class UsuarioController {
         return ResponseEntity.created(Location).body(reponseOfService);
     }
 
+    @CrossOrigin(origins = "http://localhost:4200")
     @PostMapping(value = "/login")
     public ResponseEntity<Optional<Usuario>> login(@RequestBody UsuarioDto usuarioJson) {
         Optional<Usuario> usuarioOpt = usuarioService.findByUsername(usuarioJson.getUsername());

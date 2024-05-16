@@ -157,7 +157,7 @@ CREATE SEQUENCE bendicion.hospital.usuario_seq
 -- Creación de tabla usuario
 CREATE TABLE usuario (
     id_usuario integer NOT NULL DEFAULT nextval('bendicion.hospital.usuario_seq'),
-    username VARCHAR(255),
+    username VARCHAR(255) UNIQUE,
     role_id integer, -- El ID del rol de usuario, que será una clave foránea
     password VARCHAR(255),
     PRIMARY KEY (id_usuario),

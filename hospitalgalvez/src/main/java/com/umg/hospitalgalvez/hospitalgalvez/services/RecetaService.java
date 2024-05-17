@@ -9,11 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 @Service
+@Transactional(rollbackFor = Exception.class)
 public class RecetaService {
     private final RecetaRepository recetaRepository;
     private final DetalleRecetaRepository detalleRecetaRepository;
@@ -25,19 +25,20 @@ public class RecetaService {
     }
 
     @Transactional
-    public Receta create(Receta receta) {
-        Receta recetaobj = recetaRepository.save(receta); 
-      //  int index = 0;
-     //   for (Medicamento medicamento : medicamentos) {
-      //     DetalleReceta detreceta = new DetalleReceta(recetaobj,medicamento);
-      //      System.out.println("ESTO HAY EN EL FOR"+    medicamento);
-            //detreceta.getMedicamento().setId_medicamento(medicamento.getId_medicamento());
-            //detreceta.getReceta().setId_receta(recetaObj.getId_receta());
-
-      //    DetalleReceta detrecetaObj = detalleRecetaRepository.save(detreceta);
-     //   System.out.println("ESTO HAY EN DETALLE"+ detrecetaObj);
-    //    }
-        return recetaobj; 
+    public Receta create(Receta receta, List<Medicamento> medicamentos) {
+        try {
+            Receta recetaobj = recetaRepository.save(receta);
+            for (Medicamento medicamento : medicamentos) {
+                DetalleReceta detreceta = new DetalleReceta(recetaobj, medicamento);
+                detreceta.getMedicamento().setId_medicamento(medicamento.getId_medicamento());
+                detreceta.getReceta().setId_receta(recetaobj.getId_receta());
+                detalleRecetaRepository.save(detreceta);
+            }
+            return recetaobj;
+        } catch (Exception e) {
+            throw e;
+            // TODO: handle exception
+        }
     }
 
     public List<Receta> getAll() {

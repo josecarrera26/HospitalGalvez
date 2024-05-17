@@ -1,7 +1,6 @@
 package com.umg.hospitalgalvez.hospitalgalvez.services;
 
 import com.umg.hospitalgalvez.hospitalgalvez.entity.DetalleReceta;
-import com.umg.hospitalgalvez.hospitalgalvez.entity.Receta;
 import com.umg.hospitalgalvez.hospitalgalvez.repository.DetalleRecetaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

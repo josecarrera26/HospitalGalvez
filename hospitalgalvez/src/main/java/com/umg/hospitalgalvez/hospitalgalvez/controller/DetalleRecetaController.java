@@ -1,8 +1,6 @@
 package com.umg.hospitalgalvez.hospitalgalvez.controller;
 
 import com.umg.hospitalgalvez.hospitalgalvez.dto.DetalleRecetaDto;
-import com.umg.hospitalgalvez.hospitalgalvez.dto.RecetaDto;
-import com.umg.hospitalgalvez.hospitalgalvez.entity.Cita;
 import com.umg.hospitalgalvez.hospitalgalvez.entity.DetalleReceta;
 import com.umg.hospitalgalvez.hospitalgalvez.entity.Medicamento;
 import com.umg.hospitalgalvez.hospitalgalvez.entity.Receta;

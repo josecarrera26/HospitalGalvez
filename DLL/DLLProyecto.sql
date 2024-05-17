@@ -4,41 +4,41 @@ CREATE SCHEMA hospital;
 
 --creacion de secuencia examen
 --drop sequence bendicion.hospital.examen_seq
-CREATE SEQUENCE bendicion.hospital.examen_seq
-    START WITH 1
-    INCREMENT BY 1
-    MINVALUE 0
-    maxvalue 999999;
+--CREATE SEQUENCE bendicion.hospital.examen_seq
+--    START WITH 1
+--    INCREMENT BY 1
+--    MINVALUE 0
+--    maxvalue 999999;
    
 --creacion de tabla examen
 --drop table examen;
 --select * from examen;
-create table examen (
-	id_examen int4 not null default nextval('bendicion.hospital.examen_seq') 
-		constraint pk_examen primary key,
-	descripcion varchar(250),
-	precio numeric(10,2),
-	observaciones varchar(250)
-);
+--create table examen (
+--	id_examen int4 not null default nextval('bendicion.hospital.examen_seq') 
+--		constraint pk_examen primary key,
+--	descripcion varchar(250),
+--	precio numeric(10,2),
+--	observaciones varchar(250)
+--);
 
 --insert into examen (descripcion, precio, observaciones) values ('prueba', 1234.20, 'observaciones')
 
 --creacion de secuencia operacion
 --drop sequence bendicion.hospital.operacion_seq
-CREATE SEQUENCE bendicion.hospital.operacion_seq
-    START WITH 1
-    INCREMENT BY 1
-    MINVALUE 0
-    maxvalue 999999;
+--CREATE SEQUENCE bendicion.hospital.operacion_seq
+--   START WITH 1
+--    INCREMENT BY 1
+--    MINVALUE 0
+--    maxvalue 999999;
    
 --creacion de tabla operacion
 --drop table operacion;
 --select * from operacion;
-create table operacion (
-	id_operacion int4 not null default nextval('bendicion.hospital.operacion_seq') 
-		constraint pk_operacion primary key,
-	descripcion varchar(250)
-);
+--create table operacion (
+--	id_operacion int4 not null default nextval('bendicion.hospital.operacion_seq') 
+--		constraint pk_operacion primary key,
+--	descripcion varchar(250)
+--);
 
 --insert into operacion (descripcion) values ('descripcion operacion')
 
@@ -85,8 +85,8 @@ create table medicamento(
 	codigo_medicamento varchar(250),
 	nombre_medicamento varchar(250),
 	tipo_medida varchar(30),
-	costo_medicamento numeric(10,2),
-	estado varchar(10)
+	estado varchar(10),
+	tipo_medicamento varchar(5)
 );
 
 
@@ -259,11 +259,10 @@ CREATE SEQUENCE bendicion.hospital.factura_seq
 create table factura(
 	id_factura INT not null default nextval('bendicion.hospital.factura_seq') 
 		constraint pk_factura primary key,
-	id_paciente integer,
-	fecha_factura Date,
-	descripcion_factura varchar(250),
+	fecha_factura timestamp,
 	id_usuario integer,
-	id_medico integer,
+	id_cita integer,
+	nit varchar(25)
 );
 
 --creacion de secuencia detalle_factura
@@ -358,14 +357,14 @@ FOREIGN KEY (id_usuario)
 REFERENCES usuario(id_usuario);
 
 ALTER TABLE factura
-ADD CONSTRAINT fk_factura_paciente
-FOREIGN KEY (id_paciente)
-REFERENCES paciente(id_paciente);
-
-ALTER TABLE factura
 ADD CONSTRAINT fk_factura_usuario
 FOREIGN KEY (id_usuario) 
 REFERENCES usuario(id_usuario);
+
+ALTER TABLE factura
+ADD CONSTRAINT fk_factura_cita 
+FOREIGN KEY (id_cita) 
+REFERENCES cita(id_cita);
 
 ALTER TABLE detalle_factura
 ADD CONSTRAINT fk_detalle_factura_encabezado

@@ -36,7 +36,7 @@ public class MedicamentoController {
         medicamento.setCodigo_medicamento(medicamentoJson.getCodigo_medicamento());
         medicamento.setNombre_medicamento(medicamentoJson.getNombre_medicamento());
         medicamento.setTipo_medida(medicamentoJson.getTipo_medida());
-        medicamento.setCosto_medicamento(medicamentoJson.getCosto_medicamento());
+        medicamento.setTipo_medicamento(medicamentoJson.getTipo_medicamento());
         
         Medicamento medObj = medicamentoService.create(medicamento);
 
@@ -64,7 +64,7 @@ public class MedicamentoController {
         med.setId_medicamento(medjson.getId_medicamento());
         med.setNombre_medicamento(medjson.getNombre_medicamento());
         med.setTipo_medida(medjson.getTipo_medida());
-        med.setCosto_medicamento(medjson.getCosto_medicamento());
+        med.setTipo_medicamento(medjson.getTipo_medicamento());
         med.setEstado(medjson.getEstado());
 
         Medicamento medobj = medicamentoService.update(med);

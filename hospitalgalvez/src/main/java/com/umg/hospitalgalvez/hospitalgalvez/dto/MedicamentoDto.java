@@ -16,8 +16,9 @@ public class MedicamentoDto {
 
     private String tipo_medida;
 
-    private Double costo_medicamento;
+    
 
     private String estado;
+    private String tipo_medicamento;
 
 }

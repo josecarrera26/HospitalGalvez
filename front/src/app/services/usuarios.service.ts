@@ -14,7 +14,6 @@ export class UsuariosService {
   private urlLog : string = "http://localhost:8486/apirest/login"
 
    // Datos actuales
-  // Si tienes un valor inicial para Usuario, úsalo aquí. Si no, puedes usar 'null'.
   CurrentUserData: BehaviorSubject<Usuario | null> = new BehaviorSubject<Usuario | null>(null);
 
   loginUsuario(user: Usuario): Observable<Usuario> {

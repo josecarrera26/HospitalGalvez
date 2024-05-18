@@ -1,7 +1,6 @@
 package com.umg.hospitalgalvez.hospitalgalvez.dto;
 
 
-import com.umg.hospitalgalvez.hospitalgalvez.entity.Paciente;
 import com.umg.hospitalgalvez.hospitalgalvez.entity.Usuario;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,9 +12,9 @@ import java.sql.Date;
 @AllArgsConstructor
 public class FacturaDto {
     private Long id_factura;
-    private Paciente paciente;
+    private Long id_cita;
     private Date fecha_factura;
-    private String descripcion_factura;
     private Usuario id_usuario;
-    private Long id_medico;
+    private Long [] id_medicamento;
+    private String nit;
 }

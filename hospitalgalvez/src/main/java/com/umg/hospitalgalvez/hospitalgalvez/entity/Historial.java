@@ -2,11 +2,17 @@ package com.umg.hospitalgalvez.hospitalgalvez.entity;
 
 import java.sql.Timestamp;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,11 +28,16 @@ public class Historial {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_historial;
 
-    private Long id_paciente;
-    private Timestamp fecha;
-    private Long id_detalle;
-    private String diagnostico;
-    private Long id_factura;
-    private Long id_detalle_historial;
+   
+    @ManyToOne
+    @JoinColumn(name = "id_paciente")
+    private Paciente paciente;
 
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "fecha", nullable = false, updatable = false)
+    private String diagnostico;
+    
+    @OneToOne
+    @JoinColumn(name = "id_factura")
+    private Factura factura;
 }

@@ -9,16 +9,28 @@ import { MenupacienteComponent } from './components/menuprincipal/menupaciente/m
 
 
 export const routes: Routes = [
-    {
-        path:'index',
-        loadComponent:()=>import('./components/layout/landing/landing.component'),
-    },
-    {path:'login', component:LoginComponent},
-    {path:'menuadministrador', component:MenuadministradorComponent},
-    {path: 'menupaciente',  component: MenupacienteComponent},
-    {path:'receta', component: RecetaComponent},
-    {path:'factura', component:FacturaComponent},
+  {
+    path: 'index',
+    loadComponent: () => import('./components/layout/landing/landing.component'),
+  },
+  {
+    path: 'login', component: LoginComponent,
+  },
+  {
+    path: 'menupaciente', component: MenupacienteComponent,
 
-    {path: '', redirectTo: 'index',pathMatch: 'full'},
-    {path: '**',redirectTo: 'index',pathMatch: 'full'},
+  },
+  {
+    path: 'menuadministrador', component: MenuadministradorComponent,
+    children: [{
+      path: 'factura', component: FacturaComponent
+    }]
+
+  },
+
+  { path: 'receta', component: RecetaComponent },
+
+
+  { path: '', redirectTo: 'index', pathMatch: 'full' },
+  { path: '**', redirectTo: 'index', pathMatch: 'full' },
 ];

@@ -17,8 +17,18 @@ public class HistorialService {
         this.historialRepository = historialRepository;
     }
 
-    public List<Historial> getAll(){
+     
+    public List<Historial> getAll() {
         return historialRepository.findAll();
     }
+
+    public Historial create(Historial historial) {
+        return historialRepository.save(historial);
+
+    }
+
+
+    //falta agregar consulta por id paciente
+    
 
 }

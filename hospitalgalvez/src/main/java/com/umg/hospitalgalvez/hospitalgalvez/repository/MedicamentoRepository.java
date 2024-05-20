@@ -1,5 +1,9 @@
 package com.umg.hospitalgalvez.hospitalgalvez.repository;
 
-public interface MedicamentoRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.umg.hospitalgalvez.hospitalgalvez.entity.Medicamento;
+
+public interface MedicamentoRepository extends JpaRepository<Medicamento, Long> {
 
 }

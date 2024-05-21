@@ -125,8 +125,8 @@ CREATE TABLE usuario (
 );
 --INSERT INTO hospital.usuario (username, role_id, "password") VALUES('adm', 1, '1234');
 
---select * from "role" r 
---select * from usuario u 
+--select * from "role" r; 
+--select * from usuario; 
 
 --creacion de secuencia paciente
 --drop sequence bendicion.hospital.paciente_seq
@@ -151,7 +151,7 @@ create table paciente(
 	nit varchar(25),
 	email varchar(100),
     genero varchar(25),
-	id_usuario integer,
+	id_usuario int4 REFERENCES hospital.usuario(id_usuario) ON DELETE SET NULL,
 	estado varchar(1)
 );
 
@@ -181,7 +181,7 @@ create table medico(
 	cod_jefe_inmediato integer
 );
 
---insert into paciente (nombre_medico, apellido_medico, id_especialidad, id_usuario, telefono, jornada, cod_jefe_inmediato) values ('Thomas', 'Miller', 1, 1, 12345678, a, 1)
+--insert into medico (nombre_medico, apellido_medico, id_especialidad, id_usuario, telefono, jornada, cod_jefe_inmediato) values ('Thomas', 'Miller', 1, 1, 12345678, a, 1)
 
 
 --creacion de secuencia especialidad
@@ -204,7 +204,7 @@ create table especialidad(
 	estado varchar(10)
 );
 
---insert into paciente (nombre_especialidad, descripcion, estado) values ('Cardiologo', 'descripcion', Disponible)
+--insert into especialidad (nombre_especialidad, descripcion, estado) values ('Cardiologo', 'descripcion', Disponible)
 
 
 

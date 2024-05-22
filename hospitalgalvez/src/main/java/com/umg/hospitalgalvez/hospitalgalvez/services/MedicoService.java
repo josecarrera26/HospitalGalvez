@@ -2,7 +2,6 @@ package com.umg.hospitalgalvez.hospitalgalvez.services;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.umg.hospitalgalvez.hospitalgalvez.entity.Medico;
@@ -29,5 +28,17 @@ public class MedicoService {
 
     public List<Medico> getAll(){
         return medicoRepository.findAll();
+    }
+
+    public Medico create(Medico medico){
+        return medicoRepository.save(medico);
+    }
+
+    public Medico update(Medico medico){
+        return medicoRepository.save(medico);
+    }
+
+     public void delete(Long id){
+        medicoRepository.deleteById(id);
     }
 }

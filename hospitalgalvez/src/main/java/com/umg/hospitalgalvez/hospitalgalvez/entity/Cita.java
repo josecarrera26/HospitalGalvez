@@ -27,6 +27,9 @@ public class Cita {
     @JoinColumn(name = "id_usuario")
     private Usuario usuario;
 
-    private Long id_medico;
+    @ManyToOne
+    @JoinColumn(name = "id_medico")
+    private Medico id_medico;
+
     private String estado;
 }

@@ -1,6 +1,7 @@
 package com.umg.hospitalgalvez.hospitalgalvez.services;
 
 import com.umg.hospitalgalvez.hospitalgalvez.entity.Cita;
+import com.umg.hospitalgalvez.hospitalgalvez.entity.Paciente;
 import com.umg.hospitalgalvez.hospitalgalvez.repository.CitaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,5 +24,15 @@ public class CitaService {
 
     public List<Cita> getAll(){
         return citaRepository.findAll();
+    }
+
+    public Cita create (Cita cita){
+        return citaRepository.save(cita);
+    }
+
+    public List<Cita> getCitasPaciente(Long pacienteId){
+        Paciente paciente = new Paciente();
+        paciente.setId_paciente(pacienteId);
+        return citaRepository.findByPaciente(paciente);
     }
 }

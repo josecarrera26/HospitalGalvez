@@ -4,7 +4,7 @@
     <p class="text-gray-600 mb-6 text-sm">
       ¡Bienvenido! Qué bueno tenerte de vuelta!
     </p>
-    <form autocomplete="off">
+    <form autocomplete="off" [formGroup]="form" (ngSubmit)="login()">
       <p class="text-red-500"></p>
       <div class="space-y-2">
         <div>
@@ -15,21 +15,38 @@
             id="username"
             class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-teal-500 placeholder-gray-400"
             placeholder="Username"
+            user = "user.username"
+            formControlName ="username"
           />
         </div>
       </div>
       <div class="space-y-2">
         <div>
-          <label for="password" class="text-gray-600 mb-2 block"></label
-          >Contraseña
+
           <div class="relative">
             <input
               type="password"
+
               name="password"
               id="password"
               class="block w-full border border-gray-300 px-4 py-3 text-gray-600 text-sm rounded focus:ring-0 focus:border-teal-500 placeholder-gray-400"
               placeholder="***********"
+              user = "user.password"
+              formControlName ="password"
+
             />
+            <script>
+              function togglePassword() {
+                var passwordInput = document.getElementById('password');
+                if (passwordInput.type === 'password') {
+                  passwordInput.type = 'text';
+                } else {
+                  passwordInput.type = 'password';
+                }
+              }
+              </script>
+              <button type="button" onclick="togglePassword()">Ver</button>
+
             <div
               class="cursor-pointer absolute inset-y-0 right-0 flex items-center px-8 text-gray-600 border-l border-gray-300"
             >
@@ -59,6 +76,7 @@
       <div class="mt-4">
         <button
           type="submit"
+          class="btn btn-primary"
           class="block w-full py-2 text-center text-white bg-teal-500 border border-teal-500 rounded hover:bg-transparent hover:text-teal-500 transition uppercase font-roboto font-medium"
         >
           Login
@@ -73,3 +91,4 @@
     </form>
   </div>
 </div>
+

@@ -26,7 +26,7 @@ public class Usuario {
     @Column(name = "id_usuario")
     private Long idUsuario;
 
-    @Column( name ="username")
+    @Column( name ="username", unique = true)
     private String username;
 
     @ManyToOne

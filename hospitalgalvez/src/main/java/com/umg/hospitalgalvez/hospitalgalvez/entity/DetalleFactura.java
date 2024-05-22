@@ -20,11 +20,9 @@ public class DetalleFactura {
     @JoinColumn(name = "id_factura")
     private Factura factura;
 
-    private Long id_medicamento;
-
-//    @ManyToOne
-//    @JoinColumn(name = "id_medicamento")
-//    private Medicamento medicamento;
+    @ManyToOne
+    @JoinColumn(name = "id_medicamento")
+    private Medicamento medicamento;
 
     private Integer cantidad;
     private Double tarifa;
@@ -33,4 +31,9 @@ public class DetalleFactura {
     private Double subtotal;
     private Double iva;
     private Double total;
+
+    public DetalleFactura(Factura factura, Medicamento medicamento){
+        this.factura = factura;
+        this.medicamento = medicamento;
+    }
 }

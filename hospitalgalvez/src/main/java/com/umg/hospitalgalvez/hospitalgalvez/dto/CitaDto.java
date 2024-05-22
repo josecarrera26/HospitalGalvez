@@ -1,5 +1,6 @@
 package com.umg.hospitalgalvez.hospitalgalvez.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.umg.hospitalgalvez.hospitalgalvez.entity.Paciente;
 import com.umg.hospitalgalvez.hospitalgalvez.entity.Usuario;
 import lombok.AllArgsConstructor;
@@ -12,10 +13,10 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 public class CitaDto {
     private Long id_cita;
-    private Paciente paciente;
+    private Long id_paciente;
     private Timestamp fecha_cita;
     private String descripcion;
-    private Usuario id_usuario;
+    private Long id_usuario;
     private Long id_medico;
     private String estado;
 }

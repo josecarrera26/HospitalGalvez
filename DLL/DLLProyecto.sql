@@ -179,6 +179,12 @@ create table medico(
 	telefono varchar(20),
 	jornada varchar,
 	cod_jefe_inmediato integer
+	colegiado varchar(30),
+	fechaCreacion date,
+	direccion varchar (100),
+	centro_hospitalario varchar(50),
+	edad int,
+	Observaciones varchar,
 );
 
 --insert into medico (nombre_medico, apellido_medico, id_especialidad, id_usuario, telefono, jornada, cod_jefe_inmediato) values ('Thomas', 'Miller', 1, 1, 12345678, a, 1)

@@ -20,7 +20,7 @@ import com.umg.hospitalgalvez.hospitalgalvez.entity.Usuario;
 import com.umg.hospitalgalvez.hospitalgalvez.services.UsuarioService;
 
 @RestController
-@RequestMapping("/apirest")
+@RequestMapping("/usuarios")
 public class UsuarioController {
 
     @Autowired
@@ -32,6 +32,7 @@ public class UsuarioController {
 
     @GetMapping("/consulta")
     public ResponseEntity<List<Usuario>> getList() {
+        System.out.println(" ingreso al controlador consulta");
         return ResponseEntity.ok(usuarioService.getAll());
 
     }

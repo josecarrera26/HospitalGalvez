@@ -31,5 +31,4 @@ public class Role {
 
     @Column(columnDefinition = "json") // Define el campo como tipo JSON en la base de datos
     private String accesos;
-
 }

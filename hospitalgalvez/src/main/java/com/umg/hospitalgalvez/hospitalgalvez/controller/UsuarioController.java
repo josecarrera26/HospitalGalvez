@@ -21,6 +21,7 @@ import com.umg.hospitalgalvez.hospitalgalvez.services.UsuarioService;
 
 @RestController
 @RequestMapping("/usuarios")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UsuarioController {
 
     @Autowired

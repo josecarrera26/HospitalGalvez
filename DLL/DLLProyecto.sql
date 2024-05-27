@@ -228,7 +228,8 @@ create table factura(
 	fecha_factura TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 	id_usuario integer,
 	id_cita integer,
-	nit varchar(25)
+	nit varchar(25),
+	total numeric(10,2)
 );
 
 --creacion de secuencia detalle_factura
@@ -247,9 +248,6 @@ create table detalle_factura(
 		constraint pk_detalle_factura primary key,
 	id_factura integer,
 	id_medicamento integer,
-	cantidad numeric(10,2),
-	tarifa numeric(10,2),
-	total numeric(10,2)
 );
 --creacion de secuencia historial
 --drop sequence bendicion.hospital.historial_seq

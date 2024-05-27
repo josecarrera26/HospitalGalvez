@@ -30,17 +30,20 @@ public class FacturaService {
     @Transactional
     public Factura create(Factura factura, List<Medicamento> medicamentos) {
         try {
-            Factura facturaojt = facturaRepository.save(factura);
+            // Persistir la entidad Factura
+            Factura persistedFactura = facturaRepository.save(factura);
+
+            // Crear y persistir los detalles de la factura
             for (Medicamento medicamento : medicamentos) {
-                DetalleFactura detrefact = new DetalleFactura(facturaojt, medicamento);
-                detrefact.getMedicamento().setId_medicamento(medicamento.getId_medicamento());
-                detrefact.getFactura().setId_factura(detrefact.getId_detalle());
-                detalleFacturaRepository.save(detrefact);
+                DetalleFactura detalleFactura = new DetalleFactura();
+                detalleFactura.setFactura(persistedFactura);
+                detalleFactura.setMedicamento(medicamento);
+                detalleFacturaRepository.save(detalleFactura);
             }
-            return facturaojt;
+
+            return persistedFactura;
         } catch (Exception e) {
-            throw e;
-            // TODO: handle exception
+            throw new RuntimeException("Error creating Factura", e);
         }
     }
 

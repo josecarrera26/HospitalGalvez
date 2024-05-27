@@ -63,7 +63,6 @@ public class DetalleFacturaController {
 
         detfactura.getMedicamento().setId_medicamento(detfactJson.getId_medicamento());
         detfactura.getFactura().setId_factura(detfactJson.getId_factura());
-        detfactJson.getCantidad();
 
         DetalleFactura detfactObj = detalleFacturaService.create(detfactura);
 

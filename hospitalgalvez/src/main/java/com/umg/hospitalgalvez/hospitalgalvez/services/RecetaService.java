@@ -1,10 +1,7 @@
 package com.umg.hospitalgalvez.hospitalgalvez.services;
 
-import com.umg.hospitalgalvez.hospitalgalvez.dto.DetalleRecetaDto;
 import com.umg.hospitalgalvez.hospitalgalvez.entity.DetalleReceta;
-import com.umg.hospitalgalvez.hospitalgalvez.entity.Medicamento;
 import com.umg.hospitalgalvez.hospitalgalvez.entity.Receta;
-import com.umg.hospitalgalvez.hospitalgalvez.repository.DetalleRecetaRepository;
 import com.umg.hospitalgalvez.hospitalgalvez.repository.RecetaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,27 +13,24 @@ import java.util.Optional;
 @Service
 @Transactional(rollbackFor = Exception.class)
 public class RecetaService {
+    
+    @Autowired
     private final RecetaRepository recetaRepository;
     private final DetalleRecetaService detalleRecetasService;
 
-    @Autowired
     public RecetaService(RecetaRepository recetaRepository, DetalleRecetaService detalleRecetaService) {
         this.recetaRepository = recetaRepository;
         this.detalleRecetasService = detalleRecetaService;
     }
 
     @Transactional
-    public Receta create(Receta receta, List<DetalleRecetaDto> detalles) {
+    public Receta create(Receta receta, List<DetalleReceta> detalles) {
         try {
             Receta recetaobj = recetaRepository.save(receta);
 
-            for (DetalleRecetaDto det : detalles) {
-                DetalleReceta detreceta = new DetalleReceta();
-                System.out.println("FOR DETALLE" + det.getId_medicamento());
-                detreceta.getMedicamento().setId_medicamento(det.getId_medicamento());
-                detreceta.setDescripcion(det.getDescripciones());
-                detreceta.getReceta().setId_receta(recetaobj.getId_receta());
-                detalleRecetasService.create(detreceta);
+            for (DetalleReceta det : detalles) {
+                det.setReceta(recetaobj);
+                detalleRecetasService.create(det);
             }
             return recetaobj;
         } catch (Exception e) {

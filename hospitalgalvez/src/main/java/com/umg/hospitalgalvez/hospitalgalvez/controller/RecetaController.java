@@ -1,8 +1,7 @@
 package com.umg.hospitalgalvez.hospitalgalvez.controller;
-
-import com.umg.hospitalgalvez.hospitalgalvez.dto.DetalleRecetaDto;
 import com.umg.hospitalgalvez.hospitalgalvez.dto.RecetaDto;
 import com.umg.hospitalgalvez.hospitalgalvez.entity.Cita;
+import com.umg.hospitalgalvez.hospitalgalvez.entity.DetalleReceta;
 import com.umg.hospitalgalvez.hospitalgalvez.entity.Medicamento;
 import com.umg.hospitalgalvez.hospitalgalvez.entity.Receta;
 import com.umg.hospitalgalvez.hospitalgalvez.services.CitaService;
@@ -26,16 +25,15 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-
 @RestController
 @RequestMapping("recetas")
 public class RecetaController {
+    @Autowired
 
     private final RecetaService recetaService;
     private final CitaService citaService;
     private final MedicamentoService medicamentoService;
 
-    @Autowired
     public RecetaController(RecetaService recetaService, CitaService citaService,
             DetalleRecetaService detalleRecetaService, MedicamentoService medicamentoService) {
         this.recetaService = recetaService;
@@ -58,45 +56,44 @@ public class RecetaController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
-        
-        List<DetalleRecetaDto> detalles = new ArrayList<>();
+        List<DetalleReceta> detalles = new ArrayList<>();
         // array de lons de id medicamento
-       // Long [] id_medicamentodto = recetaJson.getId_medicamento();
+        // Long [] id_medicamentodto = recetaJson.getId_medicamento();
 
-        //String[] descripciondto = recetaJson.getDescripcion();
+        // String[] descripciondto = recetaJson.getDescripcion();
 
-        for(int x = 0; x < recetaJson.getId_medicamento().length; x++){
-            DetalleRecetaDto det = new DetalleRecetaDto();
-            det.setId_medicamento(recetaJson.getId_medicamento()[x]);
-            System.out.println(det.getId_medicamento() +"ESTOY EN EL FOR DEL DETALLE");
-            det.setDescripciones(recetaJson.getDescripcion()[x]);
+        for (int x = 0; x < recetaJson.getId_medicamento().length; x++) {
+            DetalleReceta det = new DetalleReceta();
+
+            final Optional<Medicamento> meOptional = medicamentoService.findById(recetaJson.getId_medicamento()[x]);
+            if (meOptional.isPresent()) {
+                det.setMedicamento(meOptional.get());
+            }
+            det.setDescripcion(recetaJson.getDescripcion()[x]);
             detalles.add(det);
         }
 
-
-
-        //List<Medicamento> medicamentos = new ArrayList<>();
-        //List<String> descripciones = new ArrayList<>();
+        // List<Medicamento> medicamentos = new ArrayList<>();
+        // List<String> descripciones = new ArrayList<>();
 
         // for para agregar los medicamentos al array
-        //for (Long ids : id_medicamentodto) {
-            //Optional<Medicamento> med = medicamentoService.findById(ids);
-            //if (med.isPresent()) {
-              //  Medicamento medicamento = med.get();
-            //    medicamentos.add(medicamento);
-          //  }
-        //}
+        // for (Long ids : id_medicamentodto) {
+        // Optional<Medicamento> med = medicamentoService.findById(ids);
+        // if (med.isPresent()) {
+        // Medicamento medicamento = med.get();
+        // medicamentos.add(medicamento);
+        // }
+        // }
 
-        
         // for para agregar las descripciones al array
-       // for (String des : descripciondto) {
-         //       descripciones.add(des);
-        //}
+        // for (String des : descripciondto) {
+        // descripciones.add(des);
+        // }
 
         Receta recetaObj = new Receta();
         if (!detalles.isEmpty()) {
-             recetaObj = recetaService.create(receta, detalles);
-        }else{
+            recetaObj = recetaService.create(receta, detalles);
+        } else {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 

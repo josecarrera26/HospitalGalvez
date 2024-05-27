@@ -23,8 +23,10 @@ import com.umg.hospitalgalvez.hospitalgalvez.services.UsuarioService;
 @RestController
 @RequestMapping("/usuarios")
 @CrossOrigin(origins = "http://localhost:4200")
+@PreAuthorize("hasAuthority('administrador')")
 public class UsuarioController {
 
+    //@PreAuthorize("hasAuthority('administrador') or hasAuthority('secretaria')")
     @Autowired
     private final UsuarioService usuarioService;
 
@@ -33,7 +35,8 @@ public class UsuarioController {
     }
 
     
-    @PreAuthorize("hasRole('ADMIN')")
+   
+    //@PreAuthorize("hasRole('ROLE_administrador')")
     @GetMapping("/consulta")
     public ResponseEntity<List<Usuario>> getList() {
         System.out.println(" ingreso al controlador consulta");

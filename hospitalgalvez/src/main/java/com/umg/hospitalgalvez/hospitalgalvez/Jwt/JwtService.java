@@ -20,13 +20,14 @@ public class JwtService {
     private static final String SECRET_KEY = "1234hfkashfkashdfkhasfhasfhsf454545asdf4adsf77";
 
     public String getToken(UserDetails user) {
-        return getToken(new HashMap<>(), user);
+        // Modificación: Incluir el rol del usuario en los claims del token
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("role", user.getAuthorities().iterator().next().getAuthority());
+        return getToken(claims, user);
     }
 
     private String getToken(Map<String, Object> extraClaims, UserDetails user) {
-
-        return Jwts
-                .builder()
+        return Jwts.builder()
                 .setClaims(extraClaims)
                 .setSubject(user.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
@@ -36,24 +37,26 @@ public class JwtService {
     }
 
     private Key getKey() {
-        // para decodificar la llave secreta
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(keyBytes);
-
     }
 
     public String getUserFromToken(String token) {
         return getClaim(token, Claims::getSubject);
     }
 
+    // Modificación: Método para obtener el rol del token
+    public String getRoleFromToken(String token) {
+        return getClaim(token, claims -> claims.get("role", String.class));
+    }
+
     public boolean isTokenValid(String token, UserDetails userDetails) {
         final String username = getUserFromToken(token);
-        return (username.equals(userDetails.getUsername()) && !isToekenExpired(token));
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
     }
 
     private Claims getAllClaims(String token) {
-        return Jwts
-                .parserBuilder()
+        return Jwts.parserBuilder()
                 .setSigningKey(getKey())
                 .build()
                 .parseClaimsJws(token)
@@ -69,8 +72,7 @@ public class JwtService {
         return getClaim(token, Claims::getExpiration);
     }
 
-    private boolean isToekenExpired(String token) {
+    private boolean isTokenExpired(String token) {
         return getExpiration(token).before(new Date());
     }
-
 }

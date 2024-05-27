@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -57,10 +58,6 @@ public class RecetaController {
         }
 
         List<DetalleReceta> detalles = new ArrayList<>();
-        // array de lons de id medicamento
-        // Long [] id_medicamentodto = recetaJson.getId_medicamento();
-
-        // String[] descripciondto = recetaJson.getDescripcion();
 
         for (int x = 0; x < recetaJson.getId_medicamento().length; x++) {
             DetalleReceta det = new DetalleReceta();
@@ -72,23 +69,6 @@ public class RecetaController {
             det.setDescripcion(recetaJson.getDescripcion()[x]);
             detalles.add(det);
         }
-
-        // List<Medicamento> medicamentos = new ArrayList<>();
-        // List<String> descripciones = new ArrayList<>();
-
-        // for para agregar los medicamentos al array
-        // for (Long ids : id_medicamentodto) {
-        // Optional<Medicamento> med = medicamentoService.findById(ids);
-        // if (med.isPresent()) {
-        // Medicamento medicamento = med.get();
-        // medicamentos.add(medicamento);
-        // }
-        // }
-
-        // for para agregar las descripciones al array
-        // for (String des : descripciondto) {
-        // descripciones.add(des);
-        // }
 
         Receta recetaObj = new Receta();
         if (!detalles.isEmpty()) {
@@ -115,15 +95,33 @@ public class RecetaController {
         }
     }
 
-    @PatchMapping()
-    public ResponseEntity<Object> update(@RequestBody RecetaDto recetajson) {
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> update(@PathVariable Long id,@RequestBody RecetaDto recetajson) {
         Receta receta = new Receta();
+        //buscar la receta y obtener la cita
+        final Optional<Receta> recOptional;
+        recOptional = recetaService.findById(id);
+
         final Optional<Cita> cita;
-        cita = citaService.findById(recetajson.getId_cita());
-        receta.setId_receta(recetajson.getId_receta());
+        cita = citaService.findById(recOptional.get().getCita().getId_cita());
+        receta.setId_receta(recOptional.get().getId_receta());
         receta.setCita(cita.get());
 
+        List<DetalleReceta> detalles = new ArrayList<>();
+
+        for (int x = 0; x < recetajson.getId_medicamento().length; x++) {
+            DetalleReceta det = new DetalleReceta();
+
+            final Optional<Medicamento> meOptional = medicamentoService.findById(recetajson.getId_medicamento()[x]);
+            if (meOptional.isPresent()) {
+                det.setMedicamento(meOptional.get());
+            }
+            det.setDescripcion(recetajson.getDescripcion()[x]);
+            detalles.add(det);
+        }
+
         Receta recetaobj = recetaService.update(receta);
+        
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")

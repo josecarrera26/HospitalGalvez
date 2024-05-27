@@ -44,8 +44,13 @@ public class RecetaService {
     }
 
     public Receta update(Receta receta) {
+        if(detalleRecetasService.delete(receta.getId_receta())){
+            
+        }
         return recetaRepository.save(receta);
     }
+
+
 
     public Optional<Receta> findById(Long id) {
         return recetaRepository.findById(id);

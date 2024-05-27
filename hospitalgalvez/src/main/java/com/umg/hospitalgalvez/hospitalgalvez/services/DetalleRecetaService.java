@@ -33,6 +33,16 @@ public class DetalleRecetaService {
         return detalleRecetaRepository.save(detreceta);
     }
 
+    public  boolean delete(Long id) {
+        try{
+            detalleRecetaRepository.deleteById(id);
+            return true;
+        }
+        catch(Exception e){
+            return false;
+        }
+    }
+
     public Optional<DetalleReceta> findById(Long idmed) {
         return detalleRecetaRepository.findById(idmed);
     }

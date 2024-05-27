@@ -26,10 +26,6 @@ public class DetalleFactura {
 
     private Integer cantidad;
     private Double tarifa;
-    private Double impuesto;
-    private Double descuento;
-    private Double subtotal;
-    private Double iva;
     private Double total;
 
     public DetalleFactura(Factura factura, Medicamento medicamento){

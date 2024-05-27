@@ -12,4 +12,6 @@ public class DetalleFacturaDto {
     private Long id_factura;
     private Long id_medicamento;
     private Integer cantidad;
+    private Double tarifa;
+    private Double total;
 }

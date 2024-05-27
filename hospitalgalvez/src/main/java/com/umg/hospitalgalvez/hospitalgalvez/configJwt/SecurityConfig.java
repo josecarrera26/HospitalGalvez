@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -17,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
+@EnableGlobalMethodSecurity(prePostEnabled = true) // Añadido: Habilitar la seguridad global basada en métodos
 public class SecurityConfig {
 
         // .requestMatchers(HttpMethod.GET).permitAll()
@@ -41,10 +43,9 @@ public class SecurityConfig {
                                                 .requestMatchers(HttpMethod.OPTIONS).permitAll()
                                                 .requestMatchers("/login/**").permitAll()
                                                 .anyRequest().authenticated())
-                                .sessionManagement(sessionManager -> sessionManager
-                                                .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                                .authenticationProvider(authProvider)
-                                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                                .build();
+                                                .sessionManagement(sessionManager -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                                                .authenticationProvider(authProvider)
+                                                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                                                .build();
         }
 }

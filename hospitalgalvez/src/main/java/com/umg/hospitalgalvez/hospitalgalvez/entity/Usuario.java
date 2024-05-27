@@ -48,6 +48,7 @@ public class Usuario implements UserDetails{
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
+        // Modificación: Obtener autoridades basadas en el rol del usuario
         if (this.role != null) {
             return List.of(new SimpleGrantedAuthority(this.role.getNombre())); 
         } else {

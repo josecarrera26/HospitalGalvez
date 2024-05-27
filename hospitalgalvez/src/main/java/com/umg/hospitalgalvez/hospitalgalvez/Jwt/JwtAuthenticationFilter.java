@@ -1,6 +1,7 @@
 package com.umg.hospitalgalvez.hospitalgalvez.Jwt;
 
 import java.io.IOException;
+import java.util.Collections;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -32,25 +33,24 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
         // obtener token
         final String token = getTokenFromRequest(request);
         final String username;
+        final String role;
 
         if (token == null) {
             filterChain.doFilter(request, response);
             return;
         }
         username = jwtservice.getUserFromToken(token);
+        role = jwtservice.getRoleFromToken(token);
 
-        if(username != null && SecurityContextHolder.getContext().getAuthentication()==null )
-        {
-
+        if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-            if(jwtservice.isTokenValid(token, userDetails))
-            {
-            UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-                userDetails,
-                null,
-                userDetails.getAuthorities());
-
-            authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+            if (jwtservice.isTokenValid(token, userDetails)) {
+                // Modificación: Incluir el rol del usuario en el token de autenticación
+                UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                        userDetails,
+                        null,
+                        Collections.singleton(() -> role));
+                authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 SecurityContextHolder.getContext().setAuthentication(authToken);
             }
         }
@@ -60,7 +60,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter{
     private String getTokenFromRequest(HttpServletRequest request) {
         final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
         if (StringUtils.hasText(authHeader) && authHeader.startsWith("Bearer ")) {
-            return authHeader.substring(7); // apartir del orden 7 empieza el token
+            return authHeader.substring(7);
         }
         return null;
     }

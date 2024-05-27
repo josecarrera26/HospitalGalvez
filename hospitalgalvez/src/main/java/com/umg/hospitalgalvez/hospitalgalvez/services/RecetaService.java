@@ -1,5 +1,6 @@
 package com.umg.hospitalgalvez.hospitalgalvez.services;
 
+import com.umg.hospitalgalvez.hospitalgalvez.dto.DetalleRecetaDto;
 import com.umg.hospitalgalvez.hospitalgalvez.entity.DetalleReceta;
 import com.umg.hospitalgalvez.hospitalgalvez.entity.Medicamento;
 import com.umg.hospitalgalvez.hospitalgalvez.entity.Receta;
@@ -16,23 +17,26 @@ import java.util.Optional;
 @Transactional(rollbackFor = Exception.class)
 public class RecetaService {
     private final RecetaRepository recetaRepository;
-    private final DetalleRecetaRepository detalleRecetaRepository;
+    private final DetalleRecetaService detalleRecetasService;
 
     @Autowired
-    public RecetaService(RecetaRepository recetaRepository, DetalleRecetaRepository detalleRecetaRepository) {
+    public RecetaService(RecetaRepository recetaRepository, DetalleRecetaService detalleRecetaService) {
         this.recetaRepository = recetaRepository;
-        this.detalleRecetaRepository = detalleRecetaRepository;
+        this.detalleRecetasService = detalleRecetaService;
     }
 
     @Transactional
-    public Receta create(Receta receta, List<Medicamento> medicamentos) {
+    public Receta create(Receta receta, List<DetalleRecetaDto> detalles) {
         try {
             Receta recetaobj = recetaRepository.save(receta);
-            for (Medicamento medicamento : medicamentos) {
-                DetalleReceta detreceta = new DetalleReceta(recetaobj, medicamento);
-                detreceta.getMedicamento().setId_medicamento(medicamento.getId_medicamento());
+
+            for (DetalleRecetaDto det : detalles) {
+                DetalleReceta detreceta = new DetalleReceta();
+                System.out.println("FOR DETALLE" + det.getId_medicamento());
+                detreceta.getMedicamento().setId_medicamento(det.getId_medicamento());
+                detreceta.setDescripcion(det.getDescripciones());
                 detreceta.getReceta().setId_receta(recetaobj.getId_receta());
-                detalleRecetaRepository.save(detreceta);
+                detalleRecetasService.create(detreceta);
             }
             return recetaobj;
         } catch (Exception e) {

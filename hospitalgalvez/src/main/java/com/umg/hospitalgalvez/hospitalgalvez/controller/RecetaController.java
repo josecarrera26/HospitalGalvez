@@ -1,8 +1,8 @@
 package com.umg.hospitalgalvez.hospitalgalvez.controller;
 
+import com.umg.hospitalgalvez.hospitalgalvez.dto.DetalleRecetaDto;
 import com.umg.hospitalgalvez.hospitalgalvez.dto.RecetaDto;
 import com.umg.hospitalgalvez.hospitalgalvez.entity.Cita;
-import com.umg.hospitalgalvez.hospitalgalvez.entity.DetalleReceta;
 import com.umg.hospitalgalvez.hospitalgalvez.entity.Medicamento;
 import com.umg.hospitalgalvez.hospitalgalvez.entity.Receta;
 import com.umg.hospitalgalvez.hospitalgalvez.services.CitaService;
@@ -58,22 +58,44 @@ public class RecetaController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
 
+        
+        List<DetalleRecetaDto> detalles = new ArrayList<>();
         // array de lons de id medicamento
-        Long[] id_medicamentodto = recetaJson.getId_medicamento();
+       // Long [] id_medicamentodto = recetaJson.getId_medicamento();
 
-        List<Medicamento> medicamentos = new ArrayList<>();
+        //String[] descripciondto = recetaJson.getDescripcion();
+
+        for(int x = 0; x < recetaJson.getId_medicamento().length; x++){
+            DetalleRecetaDto det = new DetalleRecetaDto();
+            det.setId_medicamento(recetaJson.getId_medicamento()[x]);
+            System.out.println(det.getId_medicamento() +"ESTOY EN EL FOR DEL DETALLE");
+            det.setDescripciones(recetaJson.getDescripcion()[x]);
+            detalles.add(det);
+        }
+
+
+
+        //List<Medicamento> medicamentos = new ArrayList<>();
+        //List<String> descripciones = new ArrayList<>();
 
         // for para agregar los medicamentos al array
-        for (Long ids : id_medicamentodto) {
-            Optional<Medicamento> med = medicamentoService.findById(ids);
-            if (med.isPresent()) {
-                Medicamento medicamento = med.get();
-                medicamentos.add(medicamento);
-            }
-        }
+        //for (Long ids : id_medicamentodto) {
+            //Optional<Medicamento> med = medicamentoService.findById(ids);
+            //if (med.isPresent()) {
+              //  Medicamento medicamento = med.get();
+            //    medicamentos.add(medicamento);
+          //  }
+        //}
+
+        
+        // for para agregar las descripciones al array
+       // for (String des : descripciondto) {
+         //       descripciones.add(des);
+        //}
+
         Receta recetaObj = new Receta();
-        if (!medicamentos.isEmpty()) {
-             recetaObj = recetaService.create(receta, medicamentos);
+        if (!detalles.isEmpty()) {
+             recetaObj = recetaService.create(receta, detalles);
         }else{
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
@@ -103,7 +125,6 @@ public class RecetaController {
         cita = citaService.findById(recetajson.getId_cita());
         receta.setId_receta(recetajson.getId_receta());
         receta.setCita(cita.get());
-        receta.setFechaCreacion(recetajson.getFecha());
 
         Receta recetaobj = recetaService.update(receta);
         URI location = ServletUriComponentsBuilder

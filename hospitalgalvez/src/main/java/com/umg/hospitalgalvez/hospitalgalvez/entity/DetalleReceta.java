@@ -24,9 +24,12 @@ public class DetalleReceta {
     @JoinColumn(name = "id_medicamento")
     private Medicamento medicamento;
 
-    public DetalleReceta(Receta receta, Medicamento medicamento){
+    private String descripcion;
+
+    public DetalleReceta(Receta receta, Medicamento medicamento, String descripcion){
         this.receta = receta;
         this.medicamento = medicamento;
+        this.descripcion = descripcion;
     }
 
 }

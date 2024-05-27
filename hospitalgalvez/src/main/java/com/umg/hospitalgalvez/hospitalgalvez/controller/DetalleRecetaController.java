@@ -49,6 +49,7 @@ public class DetalleRecetaController {
     public ResponseEntity<DetalleReceta> save(@RequestBody DetalleRecetaDto detrecetaJson) {
 
         final Optional<Medicamento> med;
+        System.out.println("ES ES EN LA BUSQUEDA DE MED" + detrecetaJson.getId_medicamento());
         med = medicamentoService.findById(detrecetaJson.getId_medicamento());
 
         final Optional<Receta> receta;
@@ -59,6 +60,7 @@ public class DetalleRecetaController {
         detreceta.setReceta(receta.get());
 
         detreceta.getMedicamento().setId_medicamento(detrecetaJson.getId_medicamento());
+    
         detreceta.getReceta().setId_receta(detrecetaJson.getId_receta());
 
         DetalleReceta detrecetaObj = detalleRecetaService.create(detreceta);

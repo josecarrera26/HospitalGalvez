@@ -24,5 +24,11 @@ public class Receta {
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "fecha", nullable = false, updatable = false)
+ 
     private Date fechaCreacion;
+
+    @PrePersist
+    protected void onCreate() {
+        fechaCreacion = new Date();
+    }
 }

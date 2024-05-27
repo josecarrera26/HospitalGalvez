@@ -33,9 +33,9 @@ public class DetalleRecetaService {
         return detalleRecetaRepository.save(detreceta);
     }
 
-    public  boolean delete(Long id) {
+    public  boolean delete(Long idReceta) {
         try{
-            detalleRecetaRepository.deleteById(id);
+            detalleRecetaRepository.deleteByRecetaId(idReceta);
             return true;
         }
         catch(Exception e){

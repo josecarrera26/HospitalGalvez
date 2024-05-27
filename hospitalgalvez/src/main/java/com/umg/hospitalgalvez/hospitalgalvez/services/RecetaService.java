@@ -43,9 +43,20 @@ public class RecetaService {
         return recetaRepository.findAll();
     }
 
-    public Receta update(Receta receta) {
+    public Receta update(Receta receta, List<DetalleReceta> detalles) {
         if(detalleRecetasService.delete(receta.getId_receta())){
-            
+            try {
+                Receta recetaobj = recetaRepository.save(receta);
+    
+              for (DetalleReceta det : detalles) {
+                    det.setReceta(recetaobj);
+                    detalleRecetasService.create(det);
+                }
+                return recetaobj;
+            } catch (Exception e) {
+                throw e;
+                // TODO: handle exception
+            }   
         }
         return recetaRepository.save(receta);
     }

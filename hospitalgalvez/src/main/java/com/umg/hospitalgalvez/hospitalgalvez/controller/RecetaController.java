@@ -120,7 +120,7 @@ public class RecetaController {
             detalles.add(det);
         }
 
-        Receta recetaobj = recetaService.update(receta);
+        Receta recetaobj = recetaService.update(receta,detalles);
         
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()

@@ -31,6 +31,10 @@ public class Factura {
 
     private String nit;
 
-    
+    private Double total;
 
+    @PrePersist
+    protected void onCreate() {
+        fechaCreacion = new Date();
+    }
 }

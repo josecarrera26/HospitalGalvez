@@ -24,10 +24,6 @@ public class DetalleFactura {
     @JoinColumn(name = "id_medicamento")
     private Medicamento medicamento;
 
-    private Integer cantidad;
-    private Double tarifa;
-    private Double total;
-
     public DetalleFactura(Factura factura, Medicamento medicamento){
         this.factura = factura;
         this.medicamento = medicamento;

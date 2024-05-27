@@ -17,4 +17,5 @@ public class FacturaDto {
     private Usuario id_usuario;
     private Long [] id_medicamento;
     private String nit;
+    private Double total;
 }

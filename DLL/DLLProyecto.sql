@@ -225,7 +225,7 @@ CREATE SEQUENCE bendicion.hospital.factura_seq
 create table factura(
 	id_factura INT not null default nextval('bendicion.hospital.factura_seq') 
 		constraint pk_factura primary key,
-	fecha_factura timestamp,
+	fecha_factura TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 	id_usuario integer,
 	id_cita integer,
 	nit varchar(25)
@@ -249,10 +249,6 @@ create table detalle_factura(
 	id_medicamento integer,
 	cantidad numeric(10,2),
 	tarifa numeric(10,2),
-	impuesto numeric(10,2),
-	descuento numeric(10,2),
-	subtotal numeric(10,2),
-	iva numeric(10,2),
 	total numeric(10,2)
 );
 --creacion de secuencia historial

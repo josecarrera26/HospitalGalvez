@@ -32,11 +32,12 @@ import com.umg.hospitalgalvez.hospitalgalvez.services.MedicamentoService;
 @RequestMapping("facturas")
 public class FacturaController {
 
+    @Autowired
     private final FacturaService facturaService;
     private final CitaService citaService;
     private final MedicamentoService medicamentoService;
 
-    @Autowired
+    
     public FacturaController(FacturaService facturaService, CitaService citaService,
             DetalleFacturaService detalleFacturaService, MedicamentoService medicamentoService) {
         this.facturaService = facturaService;
@@ -49,6 +50,7 @@ public class FacturaController {
 
         final Optional<Cita> cita;
         cita = citaService.findById(facturaJson.getId_cita());
+
 
         // save
         Factura factura = new Factura();

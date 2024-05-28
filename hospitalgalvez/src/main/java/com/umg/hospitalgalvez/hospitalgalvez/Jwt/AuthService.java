@@ -38,17 +38,6 @@ public class AuthService {
                 .token(jwtservice.getToken(user))
                 .build();
     }
-/*     public AuthResponse login(LoginRequest request) {
-
-        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
-        UserDetails user = userRepository.findByUsername(request.getUsername()).orElseThrow();
-        String token = jwtservice.getToken(user);
-        return AuthResponse.builder()
-        .token(token)
-        .build();
-        
-    }
-    */
 
     public AuthResponse login(LoginRequest request) {
         // Autenticar al usuario
@@ -60,10 +49,14 @@ public class AuthService {
         // Generar el token JWT utilizando el UserDetails obtenido
         String token = jwtservice.getToken(userDetails);
     
+        String rol = userDetails.getAuthorities().iterator().next().getAuthority(); // Ejemplo, podrías obtener más datos aquí si es necesario
+        String username = userDetails.getUsername();
         // Retornar la respuesta con el token JWT
         return AuthResponse.builder()
-                .token(token)
-                .build();
+        .token(token)
+        .role(rol)
+        .username(username)
+        .build();
     }
 
 

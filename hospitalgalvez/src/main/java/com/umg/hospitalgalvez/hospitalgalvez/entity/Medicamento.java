@@ -1,5 +1,6 @@
 package com.umg.hospitalgalvez.hospitalgalvez.entity;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,7 +20,8 @@ public class Medicamento {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_medicamento;
 
-    private String codigo_medicamento;
+    @Column(name = "codigo_medicamento")
+    private String codigo;
 
     private String nombre_medicamento;
 

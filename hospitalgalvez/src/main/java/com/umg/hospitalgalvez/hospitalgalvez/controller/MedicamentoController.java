@@ -33,7 +33,7 @@ public class MedicamentoController {
     @PostMapping
     public ResponseEntity<Medicamento> save(@RequestBody MedicamentoDto medicamentoJson) {
         Medicamento medicamento = new Medicamento();
-        medicamento.setCodigo_medicamento(medicamentoJson.getCodigo_medicamento());
+        medicamento.setCodigo(medicamentoJson.getCodigo_medicamento());
         medicamento.setNombre_medicamento(medicamentoJson.getNombre_medicamento());
         medicamento.setTipo_medida(medicamentoJson.getTipo_medida());
         medicamento.setTipo_medicamento(medicamentoJson.getTipo_medicamento());
@@ -87,5 +87,18 @@ public class MedicamentoController {
             return ResponseEntity.notFound().build();
         }
     }
+
+    @GetMapping("/{codigo}/{estado}")
+    public ResponseEntity<Optional<Medicamento>> getByCodigo(@PathVariable String codigo, @PathVariable String estado){
+        final Optional<Medicamento> med;
+        med = medicamentoService.getCodigo(codigo, estado);
+        if (med.isPresent()) {
+            return ResponseEntity.ok(med);
+        }
+        else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 
 }

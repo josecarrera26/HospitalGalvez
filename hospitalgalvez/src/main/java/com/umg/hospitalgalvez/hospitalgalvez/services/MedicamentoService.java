@@ -37,4 +37,8 @@ public class MedicamentoService {
     public Optional<Medicamento> getById(Long id) {
         return medicamentoRepository.findById(id);
     }
+
+    public Optional<Medicamento> getCodigo(String codigo, String estado) {
+        return medicamentoRepository.findByCodigoAndEstado(codigo,estado);
+    }
 }

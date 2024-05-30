@@ -38,11 +38,11 @@ public class RecetaService {
             // TODO: handle exception
         }
     }
-
+    @Transactional
     public List<Receta> getAll() {
         return recetaRepository.findAll();
     }
-
+    @Transactional
     public Receta update(Receta receta, List<DetalleReceta> detalles) {
         if(detalleRecetasService.delete(receta.getId_receta())){
             try {
@@ -62,7 +62,7 @@ public class RecetaService {
     }
 
 
-
+    @Transactional
     public Optional<Receta> findById(Long id) {
         return recetaRepository.findById(id);
     }

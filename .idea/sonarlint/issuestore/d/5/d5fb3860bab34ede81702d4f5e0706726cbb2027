@@ -1,0 +1,23 @@
+
+p	java:S116"VRename this field "id_paciente" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(À¿ø­üÿÿÿÿ
+u	java:S116"[Rename this field "fecha_nacimiento" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Áßì¦ùÿÿÿÿ
+E
+java:S1068"*Remove this unused "nombre" private field.(µÿï„ùÿÿÿÿ
+B
+java:S1068",Remove this unused "apellido" private field.(åÔĞÁ
+O
+java:S1068"4Remove this unused "fecha_nacimiento" private field.(Áßì¦ùÿÿÿÿ
+H
+java:S1068"-Remove this unused "direccion" private field.(“’’öÿÿÿÿÿ
+B
+java:S1068",Remove this unused "telefono" private field.(›š´Æ
+=
+java:S1068"'Remove this unused "dpi" private field.(Ã–»…
+B
+java:S1068"'Remove this unused "nit" private field.(ô€¡ôÿÿÿÿÿ
+D
+java:S1068")Remove this unused "email" private field.(ª«Õìùÿÿÿÿ
+@
+java:S1068"*Remove this unused "genero" private field.(›ëï
+?
+java:S1068"*Remove this unused "estado" private field.(Í­ß)

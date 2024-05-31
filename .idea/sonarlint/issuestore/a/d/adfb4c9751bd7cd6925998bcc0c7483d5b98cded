@@ -1,0 +1,10 @@
+
+l	java:S116"RRename this field "id_cita" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¹ìêøÿÿÿÿ
+o	java:S116"URename this field "fecha_cita" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ã»³Ÿûÿÿÿÿ
+h	java:S116 "TRename this field "id_medico" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ë„øX
+I
+java:S1068".Remove this unused "fecha_cita" private field.(ã»³Ÿûÿÿÿÿ
+E
+java:S1068"/Remove this unused "descripcion" private field.(Å›ï
+?
+java:S1068""*Remove this unused "estado" private field.(Í­ß)

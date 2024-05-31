@@ -75,7 +75,7 @@ public class CitaController {
         envio.setUsuario(usuario.get());
         envio.setEstado(citaJson.getEstado());
         envio.setDescripcion(citaJson.getDescripcion());
-        envio.setId_medico(medico);
+        envio.setMedico(medico);
 
 
         respuesta  = citaService.create(envio);
@@ -87,6 +87,30 @@ public class CitaController {
         Optional<Paciente> paciente = pacienteService.findById(id);
         if (paciente.isPresent()) {
             List<Cita> respuesta = citaService.getCitasPaciente(id);
+            if (!respuesta.isEmpty()) {
+                return ResponseEntity.ok(respuesta);
+            }
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/citasbymedico/{id}")
+    public ResponseEntity<List<Cita>> getCitaByMedico(@PathVariable Long id) {
+        Medico medico = medicoService.getById(id);
+        if (medico != null) {
+            List<Cita> respuesta = citaService.getCitasMedico(id);
+            if (!respuesta.isEmpty()) {
+                return ResponseEntity.ok(respuesta);
+            }
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/citasbyusuario/{id}")
+    public ResponseEntity<List<Cita>> getCitaByUsuario(@PathVariable Long id) {
+        Optional<Usuario> usuario = usuarioService.findById(id);
+        if (usuario.isPresent()) {
+            List<Cita> respuesta = citaService.getCitasUsuario(id);
             if (!respuesta.isEmpty()) {
                 return ResponseEntity.ok(respuesta);
             }

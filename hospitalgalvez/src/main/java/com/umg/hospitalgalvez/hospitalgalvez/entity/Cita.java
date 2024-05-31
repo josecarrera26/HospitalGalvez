@@ -29,7 +29,7 @@ public class Cita {
 
     @ManyToOne
     @JoinColumn(name = "id_medico")
-    private Medico id_medico;
+    private Medico medico;
 
     private String estado;
 }

@@ -1,5 +1,6 @@
 package com.umg.hospitalgalvez.hospitalgalvez.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,18 +20,14 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:4200")
 public class LoginController {
-        private final AuthService authservice;
 
-    //constrolador de autenticacion de login
+    @Autowired
+    private final AuthService authservice;
+
+    // constrolador de autenticacion de login
     @PostMapping(value = "/token")
-    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request){
+    public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest request) {
         return ResponseEntity.ok(authservice.login(request));
-    }
-
-    //para registrar usuario
-    @PostMapping(value = "/registrar")
-    public ResponseEntity<AuthResponse> register( @RequestBody UsuarioDto request){
-        return ResponseEntity.ok(authservice.register(request));
     }
 
 }

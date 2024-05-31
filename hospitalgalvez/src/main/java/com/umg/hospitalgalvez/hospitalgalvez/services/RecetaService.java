@@ -74,8 +74,25 @@ public class RecetaService {
         return recetaRepository.findById(id);
     }
 
-    public List<RecetaDtoConsultaMed> getrecetaByMedico(Long id_receta, Long id_medico) {
-        List<Object[]> results = recetaRepository.findRecetasByMedico(id_receta, id_medico);
+    public List<RecetaDtoConsultaMed> getrecetaByMedico(Long id_receta) {
+        List<Object[]> results = recetaRepository.findRecetasByMedico(id_receta);
+
+        List<RecetaDtoConsultaMed> recetas = new ArrayList<>();
+
+        for (Object[] row : results) {
+            RecetaDtoConsultaMed recetaDto = new RecetaDtoConsultaMed();
+            recetaDto.setId_receta((Long) row[0]);
+            recetaDto.setId_cita((Long) row[1]);
+            recetaDto.setFecha((Date) row[2]);
+            recetaDto.setNombre((String) row[3]);
+            recetaDto.setNombre_medico((String) row[4]);
+            recetas.add(recetaDto);
+        }
+        return recetas;
+    }
+
+    public List<RecetaDtoConsultaMed> getrecetas() {
+        List<Object[]> results = recetaRepository.findAllRecetas();
 
         List<RecetaDtoConsultaMed> recetas = new ArrayList<>();
 

@@ -85,9 +85,10 @@ public class RecetaController {
         return ResponseEntity.created(location).build();
     }
 
+    
     @GetMapping
-    public ResponseEntity<List<Receta>> getList() {
-        List<Receta> response = recetaService.getAll();
+    public ResponseEntity<List<RecetaDtoConsultaMed>> getRecetas() {
+        List<RecetaDtoConsultaMed> response = recetaService.getrecetas();
         if (response.isEmpty()) {
             return ResponseEntity.notFound().build();
         } else {
@@ -96,8 +97,8 @@ public class RecetaController {
     }
 
     @GetMapping("/{id_receta}/{id_medico}")
-    public ResponseEntity<List<RecetaDtoConsultaMed>> getRecetasMed(@PathVariable Long id_receta,@PathVariable Long id_medico) {
-        List<RecetaDtoConsultaMed> response = recetaService.getrecetaByMedico(id_receta, id_medico);
+    public ResponseEntity<List<RecetaDtoConsultaMed>> getRecetasMed(@PathVariable Long id_receta) {
+        List<RecetaDtoConsultaMed> response = recetaService.getrecetaByMedico(id_receta);
         if (response.isEmpty()) {
             return ResponseEntity.notFound().build();
         } else {

@@ -1,5 +1,6 @@
 package com.umg.hospitalgalvez.hospitalgalvez.controller;
 import com.umg.hospitalgalvez.hospitalgalvez.dto.RecetaDto;
+import com.umg.hospitalgalvez.hospitalgalvez.dto.RecetaDtoConsultaMed;
 import com.umg.hospitalgalvez.hospitalgalvez.entity.Cita;
 import com.umg.hospitalgalvez.hospitalgalvez.entity.DetalleReceta;
 import com.umg.hospitalgalvez.hospitalgalvez.entity.Medicamento;
@@ -87,6 +88,16 @@ public class RecetaController {
     @GetMapping
     public ResponseEntity<List<Receta>> getList() {
         List<Receta> response = recetaService.getAll();
+        if (response.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(response);
+        }
+    }
+
+    @GetMapping("/{id_receta}/{id_medico}")
+    public ResponseEntity<List<RecetaDtoConsultaMed>> getRecetasMed(@PathVariable Long id_receta,@PathVariable Long id_medico) {
+        List<RecetaDtoConsultaMed> response = recetaService.getrecetaByMedico(id_receta, id_medico);
         if (response.isEmpty()) {
             return ResponseEntity.notFound().build();
         } else {

@@ -1,18 +1,19 @@
 package com.umg.hospitalgalvez.hospitalgalvez.dto;
 
-import java.sql.Date;
-import java.util.ArrayList;
+
+
+import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RecetaDto {
-    private Long id_receta;
+public class RecetaDtoConsultaMed {
+ private Long id_receta;
     private Long id_cita;
-    private Long [] id_medicamento;
-    private String [] descripcion;
+    private Date fecha;
+    private String nombre;
+    private String nombre_medico;
 }

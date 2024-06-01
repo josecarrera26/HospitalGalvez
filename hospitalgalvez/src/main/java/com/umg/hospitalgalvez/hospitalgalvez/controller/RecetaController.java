@@ -1,5 +1,8 @@
 package com.umg.hospitalgalvez.hospitalgalvez.controller;
+
+import com.umg.hospitalgalvez.hospitalgalvez.dto.EditarReceta;
 import com.umg.hospitalgalvez.hospitalgalvez.dto.RecetaDto;
+import com.umg.hospitalgalvez.hospitalgalvez.dto.RecetaDtoConsultaMed;
 import com.umg.hospitalgalvez.hospitalgalvez.entity.Cita;
 import com.umg.hospitalgalvez.hospitalgalvez.entity.DetalleReceta;
 import com.umg.hospitalgalvez.hospitalgalvez.entity.Medicamento;
@@ -33,12 +36,16 @@ public class RecetaController {
     private final RecetaService recetaService;
     private final CitaService citaService;
     private final MedicamentoService medicamentoService;
+    private final DetalleRecetaService detalleRecetaService;
+
 
     public RecetaController(RecetaService recetaService, CitaService citaService,
             DetalleRecetaService detalleRecetaService, MedicamentoService medicamentoService) {
         this.recetaService = recetaService;
         this.citaService = citaService;
         this.medicamentoService = medicamentoService;
+        this.detalleRecetaService = detalleRecetaService;
+
     }
 
     @PostMapping
@@ -85,8 +92,38 @@ public class RecetaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Receta>> getList() {
-        List<Receta> response = recetaService.getAll();
+    public ResponseEntity<List<RecetaDtoConsultaMed>> getRecetas() {
+        List<RecetaDtoConsultaMed> response = recetaService.getrecetas();
+        if (response.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(response);
+        }
+    }
+
+    @GetMapping("/{id_receta}/{id_medico}")
+    public ResponseEntity<List<RecetaDtoConsultaMed>> getRecetasMed(@PathVariable Long id_receta,
+            @PathVariable Long id_medico) {
+       
+            List<RecetaDtoConsultaMed> response = recetaService.getrecetaByMedico(id_receta);
+        if (response.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        } else {
+            return ResponseEntity.ok(response);
+    }
+}
+
+    @GetMapping("/{id_receta}/{id_medico}/{id}")
+    public ResponseEntity<List<EditarReceta>> getRecetaEditar(@PathVariable Long id_receta,
+            @PathVariable Long id_medico) {
+            Receta receta = new Receta();
+            // buscar la receta y obtener la cita
+            final Optional<Receta> recOptional;
+            recOptional = recetaService.findById(id_receta);
+            receta = (recOptional.get());
+            System.out.println("esto hay en receta" + receta);
+            List<EditarReceta> response = detalleRecetaService.geteditarReceta(receta);
+
         if (response.isEmpty()) {
             return ResponseEntity.notFound().build();
         } else {
@@ -95,9 +132,9 @@ public class RecetaController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> update(@PathVariable Long id,@RequestBody RecetaDto recetajson) {
+    public ResponseEntity<Object> update(@PathVariable Long id, @RequestBody RecetaDto recetajson) {
         Receta receta = new Receta();
-        //buscar la receta y obtener la cita
+        // buscar la receta y obtener la cita
         final Optional<Receta> recOptional;
         recOptional = recetaService.findById(id);
 
@@ -119,8 +156,8 @@ public class RecetaController {
             detalles.add(det);
         }
 
-        Receta recetaobj = recetaService.update(receta,detalles);
-        
+        Receta recetaobj = recetaService.update(receta, detalles);
+
         URI location = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")

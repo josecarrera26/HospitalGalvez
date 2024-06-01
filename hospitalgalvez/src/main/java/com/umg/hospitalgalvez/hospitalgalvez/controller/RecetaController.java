@@ -114,15 +114,9 @@ public class RecetaController {
 }
 
     @GetMapping("/{id_receta}/{id_medico}/{id}")
-    public ResponseEntity<List<EditarReceta>> getRecetaEditar(@PathVariable Long id_receta,
-            @PathVariable Long id_medico) {
-            Receta receta = new Receta();
-            // buscar la receta y obtener la cita
-            final Optional<Receta> recOptional;
-            recOptional = recetaService.findById(id_receta);
-            receta = (recOptional.get());
-            System.out.println("esto hay en receta" + receta);
-            List<EditarReceta> response = detalleRecetaService.geteditarReceta(receta);
+    public ResponseEntity<List<EditarReceta>> getRecetaEditar(@PathVariable Long id_receta) {
+           
+            List<EditarReceta> response = detalleRecetaService.geteditarReceta(id_receta);
 
         if (response.isEmpty()) {
             return ResponseEntity.notFound().build();

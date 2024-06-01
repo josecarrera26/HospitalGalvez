@@ -1,6 +1,7 @@
 package com.umg.hospitalgalvez.hospitalgalvez.entity;
 
 import java.util.Date;
+import java.util.List;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -31,4 +32,10 @@ public class Receta {
     protected void onCreate() {
         fechaCreacion = new Date();
     }
+
+
+
+    
+    @OneToMany(mappedBy = "receta")
+    private List<DetalleReceta> detalleRecetas;
 }

@@ -1,5 +1,6 @@
 package com.umg.hospitalgalvez.hospitalgalvez.services;
 
+import com.umg.hospitalgalvez.hospitalgalvez.dto.DetalleMedicamento;
 import com.umg.hospitalgalvez.hospitalgalvez.dto.EditarReceta;
 import com.umg.hospitalgalvez.hospitalgalvez.entity.DetalleReceta;
 import com.umg.hospitalgalvez.hospitalgalvez.entity.Receta;
@@ -40,6 +41,7 @@ public class DetalleRecetaService {
 
     public boolean delete(Long idReceta) {
         try {
+            System.out.println("ENTRE A ELIMINAR DETALLE");
             detalleRecetaRepository.deleteByRecetaId(idReceta);
             return true;
         } catch (Exception e) {
@@ -51,19 +53,29 @@ public class DetalleRecetaService {
         return detalleRecetaRepository.findById(idmed);
     }
 
-    public List<EditarReceta> geteditarReceta(Receta receta) {
-        List<Object[]> results = detalleRecetaRepository.findByReceta(receta);
+    public List<EditarReceta> geteditarReceta(Long id_receta) {
+        List<Object[]> results = detalleRecetaRepository.findByReceta(id_receta);
         List<EditarReceta> recetas = new ArrayList<>();
+        if (results.isEmpty()) {
+            return recetas;
+        }
+        EditarReceta recetaDto = new EditarReceta();
+        List<DetalleMedicamento> detalleMedicamentos = new ArrayList<>();
         for (Object[] row : results) {
-            EditarReceta recetaDto = new EditarReceta();
+
             recetaDto.setId_cita((Long) row[0]);
             recetaDto.setFecha((Date) row[1]);
             recetaDto.setNombre((String) row[2]);
             recetaDto.setNombre_medico((String) row[3]);
-            Long[] id_medicamentos = Arrays.copyOfRange(row, 4, row.length, Long[].class);
-            recetaDto.setId_medicamento(id_medicamentos);
-            recetas.add(recetaDto);
+            DetalleMedicamento detalleMedicamento = new DetalleMedicamento();
+            detalleMedicamento.setNombre_medicamento((String) row[4]);
+            detalleMedicamento.setId_medicamento((Long) row[5]);
+            detalleMedicamento.setDescripcion((String) row[6]);
+
+            detalleMedicamentos.add(detalleMedicamento);
         }
+        recetaDto.setDetalle(detalleMedicamentos);
+        recetas.add(recetaDto);
         return recetas;
     }
 

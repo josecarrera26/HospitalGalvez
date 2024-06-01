@@ -1,5 +1,6 @@
 package com.umg.hospitalgalvez.hospitalgalvez.services;
 
+import com.umg.hospitalgalvez.hospitalgalvez.dto.EditarReceta;
 import com.umg.hospitalgalvez.hospitalgalvez.dto.RecetaDto;
 import com.umg.hospitalgalvez.hospitalgalvez.dto.RecetaDtoConsultaMed;
 import com.umg.hospitalgalvez.hospitalgalvez.entity.DetalleReceta;
@@ -90,6 +91,8 @@ public class RecetaService {
         }
         return recetas;
     }
+
+   
 
     public List<RecetaDtoConsultaMed> getrecetas() {
         List<Object[]> results = recetaRepository.findAllRecetas();

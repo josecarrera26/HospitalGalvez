@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,7 +34,7 @@ public class MedicamentoController {
     @PostMapping
     public ResponseEntity<Medicamento> save(@RequestBody MedicamentoDto medicamentoJson) {
         Medicamento medicamento = new Medicamento();
-        medicamento.setCodigo(medicamentoJson.getCodigo_medicamento());
+        medicamento.setCodigo(medicamentoJson.getCodigo());
         medicamento.setNombre_medicamento(medicamentoJson.getNombre_medicamento());
         medicamento.setTipo_medida(medicamentoJson.getTipo_medida());
         medicamento.setTipo_medicamento(medicamentoJson.getTipo_medicamento());
@@ -55,17 +56,18 @@ public class MedicamentoController {
             return ResponseEntity.notFound().build();
         } else {
             return ResponseEntity.ok(response);
-        }
+        } 
     }
 
-    @PatchMapping()
+    @PutMapping("/{id}")
     public ResponseEntity<Object> update(@RequestBody MedicamentoDto medjson) {
         Medicamento med = new Medicamento();
         med.setId_medicamento(medjson.getId_medicamento());
+        med.setCodigo(medjson.getCodigo());
         med.setNombre_medicamento(medjson.getNombre_medicamento());
         med.setTipo_medida(medjson.getTipo_medida());
         med.setTipo_medicamento(medjson.getTipo_medicamento());
-        med.setEstado(medjson.getEstado());
+        med.setEstado("A");
 
         Medicamento medobj = medicamentoService.update(med);
         URI location = ServletUriComponentsBuilder

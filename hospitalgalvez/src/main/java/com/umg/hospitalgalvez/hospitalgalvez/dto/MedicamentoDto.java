@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class MedicamentoDto {
     private Long id_medicamento;
 
-    private String codigo_medicamento;
+    private String codigo;
 
     private String nombre_medicamento;
 

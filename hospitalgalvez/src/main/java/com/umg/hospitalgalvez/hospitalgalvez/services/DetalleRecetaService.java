@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -62,6 +64,7 @@ public class DetalleRecetaService {
         EditarReceta recetaDto = new EditarReceta();
         List<DetalleMedicamento> detalleMedicamentos = new ArrayList<>();
         for (Object[] row : results) {
+         
 
             recetaDto.setId_cita((Long) row[0]);
             recetaDto.setFecha((Date) row[1]);
@@ -71,8 +74,14 @@ public class DetalleRecetaService {
             detalleMedicamento.setNombre_medicamento((String) row[4]);
             detalleMedicamento.setId_medicamento((Long) row[5]);
             detalleMedicamento.setDescripcion((String) row[6]);
-
             detalleMedicamentos.add(detalleMedicamento);
+            recetaDto.setDescripcion((String) row[7]);
+           // recetaDto.setFecha_cita((String) row[8]);
+            Timestamp timestamp = (Timestamp) row[8];
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            String fechaString = dateFormat.format(timestamp);
+            recetaDto.setFecha_cita(fechaString);
+           
         }
         recetaDto.setDetalle(detalleMedicamentos);
         recetas.add(recetaDto);

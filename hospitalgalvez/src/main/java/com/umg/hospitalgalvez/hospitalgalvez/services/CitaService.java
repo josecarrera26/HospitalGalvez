@@ -50,4 +50,8 @@ public class CitaService {
         return citaRepository.findByUsuario(usuario);
     }
 
+//    public List<Cita> getCitasOrderbByDate(){
+//        return citaRepository.findAllOrderByfecha_cita();
+//    }
+
 }

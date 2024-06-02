@@ -15,4 +15,6 @@ private Long id_cita;
     private String nombre;
     private String nombre_medico;
     private List<DetalleMedicamento> detalle;
+    private String descripcion;
+    private String fecha_cita;
 }

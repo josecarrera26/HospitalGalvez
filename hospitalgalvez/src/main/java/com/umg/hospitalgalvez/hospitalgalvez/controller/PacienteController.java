@@ -17,7 +17,9 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.umg.hospitalgalvez.hospitalgalvez.dto.MedicamentoDto;
 import com.umg.hospitalgalvez.hospitalgalvez.dto.PacienteDto;
+import com.umg.hospitalgalvez.hospitalgalvez.entity.Medicamento;
 import com.umg.hospitalgalvez.hospitalgalvez.entity.Paciente;
 import com.umg.hospitalgalvez.hospitalgalvez.entity.Usuario;
 import com.umg.hospitalgalvez.hospitalgalvez.services.PacienteService;
@@ -49,6 +51,18 @@ public class PacienteController {
             return ResponseEntity.ok(respuesta);
         }
         return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Optional<Paciente>> getById(@PathVariable Long id){
+        final Optional<Paciente> med;
+        med = pacienteService.findById(id);
+        if (med.isPresent()) {
+            return ResponseEntity.ok(med);
+        }
+        else {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping
@@ -117,6 +131,7 @@ public class PacienteController {
                 }
 
                 Paciente paciente = new Paciente();
+                paciente.setId_paciente(pacienteJson.getId_paciente());
                 paciente.setNombre(nombreCliente);
                 paciente.setFecha_nacimiento(pacienteJson.getFecha_nacimiento());
                 paciente.setDireccion(pacienteJson.getDireccion());
@@ -157,4 +172,6 @@ public class PacienteController {
             return ResponseEntity.notFound().build();
         }
     }
+
+
 }

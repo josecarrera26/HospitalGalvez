@@ -28,10 +28,10 @@ import com.umg.hospitalgalvez.hospitalgalvez.services.UsuarioService;
 @RestController
 @RequestMapping("/usuarios")
 @CrossOrigin(origins = "http://localhost:4200")
-// @PreAuthorize("hasAuthority('administrador')")
+@PreAuthorize("hasAuthority('administrador')")
 public class UsuarioController {
 
-    // @PreAuthorize("hasAuthority('administrador') or hasAuthority('secretaria')")
+    // @PreAuthorize("hasAuthority('administrador') or hasAuthority('secretaria') or hasAuthority('doctor') ")
     @Autowired
     private final UsuarioService usuarioService;
 

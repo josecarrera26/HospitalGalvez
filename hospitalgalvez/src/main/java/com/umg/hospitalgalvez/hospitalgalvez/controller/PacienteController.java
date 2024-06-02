@@ -10,6 +10,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -28,6 +29,7 @@ import com.umg.hospitalgalvez.hospitalgalvez.services.UsuarioService;
 
 @RestController
 @RequestMapping("/paciente")
+@PreAuthorize("hasAuthority('administrador') or hasAuthority('secretaria') ")
 public class PacienteController {
 
     @Autowired

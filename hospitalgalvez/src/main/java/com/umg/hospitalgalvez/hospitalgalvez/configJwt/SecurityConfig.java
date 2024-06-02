@@ -31,13 +31,15 @@ public class SecurityConfig {
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
                 http.csrf(csrf -> csrf.disable())
                     .authorizeHttpRequests(authRequest -> authRequest
-                        .requestMatchers(HttpMethod.GET).permitAll()
+                    /* 
+                        //.requestMatchers(HttpMethod.GET).permitAll()
                         .requestMatchers(HttpMethod.POST).permitAll()
                         .requestMatchers(HttpMethod.DELETE).permitAll()
                         .requestMatchers(HttpMethod.PUT).permitAll()
                         .requestMatchers(HttpMethod.PATCH).permitAll()
                         .requestMatchers(HttpMethod.HEAD).permitAll()
                         .requestMatchers(HttpMethod.TRACE).permitAll()
+                        */
                         .requestMatchers(HttpMethod.OPTIONS).permitAll()
                         .requestMatchers("/login/**").permitAll()
                         .anyRequest().authenticated())

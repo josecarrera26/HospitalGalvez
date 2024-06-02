@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import com.umg.hospitalgalvez.hospitalgalvez.services.MedicamentoService;
 
 @RestController
 @RequestMapping("medicamento")
+@PreAuthorize("hasAuthority('administrador') or hasAuthority('secretaria') or hasAuthority('doctor')")
 public class MedicamentoController {
     private final MedicamentoService medicamentoService;
 

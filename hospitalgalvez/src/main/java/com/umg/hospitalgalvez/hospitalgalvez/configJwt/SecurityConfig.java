@@ -29,23 +29,22 @@ public class SecurityConfig {
 
         @Bean
         public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-                return http
-                                .csrf(csrf -> csrf
-                                                .disable())
-                                .authorizeHttpRequests(authRequest -> authRequest
-                                                .requestMatchers(HttpMethod.GET).permitAll()
-                                                .requestMatchers(HttpMethod.POST).permitAll()
-                                                .requestMatchers(HttpMethod.DELETE).permitAll()
-                                                .requestMatchers(HttpMethod.PUT).permitAll()
-                                                .requestMatchers(HttpMethod.PATCH).permitAll()
-                                                .requestMatchers(HttpMethod.HEAD).permitAll()
-                                                .requestMatchers(HttpMethod.TRACE).permitAll()
-                                                .requestMatchers(HttpMethod.OPTIONS).permitAll()
-                                                .requestMatchers("/login/**").permitAll()
-                                                .anyRequest().authenticated())
-                                                .sessionManagement(sessionManager -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                                                .authenticationProvider(authProvider)
-                                                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                                                .build();
-        }
+                http.csrf(csrf -> csrf.disable())
+                    .authorizeHttpRequests(authRequest -> authRequest
+                        .requestMatchers(HttpMethod.GET).permitAll()
+                        .requestMatchers(HttpMethod.POST).permitAll()
+                        .requestMatchers(HttpMethod.DELETE).permitAll()
+                        .requestMatchers(HttpMethod.PUT).permitAll()
+                        .requestMatchers(HttpMethod.PATCH).permitAll()
+                        .requestMatchers(HttpMethod.HEAD).permitAll()
+                        .requestMatchers(HttpMethod.TRACE).permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS).permitAll()
+                        .requestMatchers("/login/**").permitAll()
+                        .anyRequest().authenticated())
+                    .sessionManagement(sessionManager -> sessionManager.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                    .authenticationProvider(authProvider)
+                    .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+        
+                return http.build();
+            }
 }

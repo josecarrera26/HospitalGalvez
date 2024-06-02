@@ -118,4 +118,27 @@ public class CitaController {
         return ResponseEntity.notFound().build();
     }
 
+    @PatchMapping("/update")
+    public ResponseEntity<Cita> updateCita(@RequestBody CitaDto citaJson) {
+        final Cita citaEntity = null;
+        citaEntity.setId_cita(citaJson.getId_cita());
+        citaEntity.setFecha_cita(citaJson.getFecha_cita());
+        citaEntity.setEstado(citaJson.getEstado());
+        citaEntity.setDescripcion(citaJson.getDescripcion());
+        citaEntity.setMedico(medicoService.getById(citaJson.getId_medico()));
+
+        citaService.create(citaEntity);
+
+        return ResponseEntity.ok(citaEntity);
+    }
+
+//    @GetMapping("/bydate")
+//    public ResponseEntity<List<Cita>> byDate(){
+//        List<Cita> respuesta = new ArrayList<>();
+//        respuesta = citaService.getCitasOrderbByDate();
+//        if (respuesta != null) {
+//            return ResponseEntity.ok(respuesta);
+//        }
+//        return ResponseEntity.notFound().build();
+//    }
 }

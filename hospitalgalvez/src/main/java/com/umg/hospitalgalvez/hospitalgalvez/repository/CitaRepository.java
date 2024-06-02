@@ -12,4 +12,5 @@ public interface CitaRepository extends JpaRepository<Cita, Long> {
     List<Cita> findByPaciente(Paciente paciente);
     List<Cita> findByMedico(Medico medico);
     List<Cita> findByUsuario(Usuario usuario);
+//    List<Cita> findAllOrderByfecha_cita();
 }
